@@ -1,0 +1,163 @@
+html,
+body{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+    background-color: rgb(245, 245, 245);
+  padding: 0 !important; /* prevent unwanted padding caused by opening menu in smaller screens */
+  scroll-behavior: smooth;
+}
+
+.container {
+  margin: 80px auto 0 auto;
+  max-width: 1200px;
+}
+
+.nav-container {
+  margin: auto;
+}
+
+.nav-container svg {
+  color: #fff;
+}
+
+a{
+  text-decoration: none;
+}
+
+.MuiAvatar-root{
+  margin-right: 10px;
+  margin-bottom: 5px;
+}
+
+.mention {
+  color: #4a85bb;
+  text-decoration: none;
+}
+
+.mentionSuggestions {
+  border-top: 1px solid #eee;
+  background: #fff;
+  border-radius: 2px;
+  cursor: pointer;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  transform-origin: 50% 0%;
+  transform: scaleY(0);
+  margin: -16px;
+}
+
+.mentionSuggestionsEntryContainer {
+  display: table;
+  width: 100%;
+}
+
+.mentionSuggestionsEntryContainerLeft,
+.mentionSuggestionsEntryContainerRight {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.mentionSuggestionsEntryContainerRight {
+  width: 100%;
+  padding-left: 8px;
+}
+
+.mentionSuggestionsEntry {
+  padding: 7px 10px 3px 10px;
+  transition: background-color 0.4s cubic-bezier(.27,1.27,.48,.56);
+}
+
+.mentionSuggestionsEntry:active {
+  background-color: #cce7ff;
+}
+
+.mentionSuggestionsEntryFocused {
+  composes: mentionSuggestionsEntry;
+  background-color: #e6f3ff;
+}
+
+.mentionSuggestionsEntryText,
+.mentionSuggestionsEntryTitle {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mentionSuggestionsEntryText {
+  color: white;
+}
+
+.mentionSuggestionsEntryTitle {
+  font-size: 80%;
+  color: #a7a7a7;
+}
+
+.mentionSuggestionsEntryAvatar {
+  display: block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.draftJsMentionPlugin__mention__29BEd, .draftJsMentionPlugin__mention__29BEd:visited { /* text mention property - in the comment */
+  color: #01B2BF !important;
+  background: transparent !important;
+}
+
+.draftJsMentionPlugin__mentionSuggestionsEntryFocused__3LcTd { /* set the background color when hovering on a suggestion (i.e a user to be tagged)*/
+  background-color: rgba(1, 178, 191, 0.3) !important; /* #01B2BF with alpha*/
+}
+
+.draftJsMentionPlugin__mentionSuggestionsEntryAvatar__1xgA9 { /* suggestions avatar */
+  object-fit: cover;
+}
+a {
+  color: #01B2BF;
+}
+
+#movies-tv-toggle .MuiToggleButton-root {
+  border: transparent;
+  border-left: 1px solid transparent ;
+  border-radius: 25px !important;
+  color: white;
+}
+
+#movies-tv-toggle .MuiToggleButton-root.Mui-selected {
+  border-color: #01B2BF;
+  border-left: 1px solid #01B2BF !important;
+  background-color: #01B2BF;
+  border-radius: 25px !important;
+  color: white;
+  height: 35px;
+}
+
+#recommended-movies-tv-toggle .MuiToggleButton-root.Mui-selected {
+  background-color: transparent;
+  border: 0 solid transparent;
+}
+#recommended-movies-tv-toggle .MuiToggleButton-root {
+  border: 0 solid transparent;
+}
+#recommended-movies-tv-toggle .MuiToggleButton-root.Mui-selected .MuiTypography-h6 {
+  /*border-color: #255059;
+  border-left: 1px solid #255059 !important;
+  background-color: transparent;
+  */
+  color: #079BAB;
+  background-color: transparent;
+
+}
+
+
+.MuiSelect-icon {
+  color: #01B2BF !important;
+}
+
+.MuiMenu-paper {
+ border: 1px solid rgba(208,208,208,0.1);
+}
