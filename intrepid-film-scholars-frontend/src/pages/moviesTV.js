@@ -62,7 +62,12 @@ const styles = (theme) => ({
         height: 40,
         display: 'flex',
         alignItems: 'center',
-        borderRadius: 25
+        borderRadius: 25,
+        [theme.breakpoints.down('xs')]: {
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'space-between',
+        }
     },
     category: {
         display: 'flex',
@@ -80,6 +85,9 @@ const styles = (theme) => ({
         borderRadius: 25,
         //marginLeft: 15,
         border: '1px solid #01B2BF',
+        [theme.breakpoints.down('xs')]: {
+            width: 150
+        }
 
     },
     toggleButton: {
@@ -92,7 +100,10 @@ const styles = (theme) => ({
     toggleButtonTypography: {
         fontSize: '1rem',
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        [theme.breakpoints.down('xs')]: {
+            fontSize: '0.875rem'
+        }
 
     }
 })

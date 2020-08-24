@@ -1,14 +1,18 @@
-import React, { Component, Fragment } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import withStyles from '@material-ui/core/styles/withStyles';
 
-
 //import Material UI
+import { useMediaQuery } from "@material-ui/core";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
+
+// import icons 
+import SendIcon from '@material-ui/icons/SendRounded';
 
 //import Redux
 import { connect } from 'react-redux';
@@ -28,6 +32,11 @@ const styles = (theme) => ({
         marginBottom: 20,
         display: 'flex'
     },
+    mobileSizeTextField: {
+        '& .MuiOutlinedInput-multiline': {
+            paddingBottom: 27
+        }
+    },
     submitButton: {
         maxHeight: 50,
         position: 'relative'
@@ -36,7 +45,7 @@ const styles = (theme) => ({
         '-webkit-appearance': 'none',
         height: 28,
         borderRadius: 10,
-        display: 'flex', 
+        display: 'flex',
         alignItems: 'center',
         '& .MuiButton-label': {
             height: 0
@@ -50,208 +59,270 @@ const styles = (theme) => ({
         color: 'gray',
         display: 'inline-block'
     },
+    mobileSizeCheckBox: {
+        paddingLeft: 0,
+        paddingRight: 2,
+        color: 'gray',
+        display: 'inline-block',
+        '& .MuiSvgIcon-root': {
+            width: '0.85em',
+            height: '0.85em'
+        }
+    },
     buttonTypography: {
         color: 'gray',
         textTransform: 'Capitalize'
     }
 })
-class PostForm extends Component {
-    state = {
-        body: '', // body of the new post
-        titleId: '',
-        errors: {},
-        submitted: false,
-        opinionButtonOn: true,
-        funFactButtonOn: false,
-        plotHoleButtonOn: false
-    }
+function PostForm(props) {
+    const [body, setBody] = useState('');
+    // const [titleId, setTitleId] = useState('');
+    const [errors, setErrors] = useState({});
+    // const [submitted, setSubmitted] = useState(false);
+    const [opinionButtonOn, setOpinionButtonOn] = useState(true);
+    const [funFactButtonOn, setFunFactButtonOn] = useState(false);
+    const [plotHoleButtonOn, setPlotHoleButtonOn] = useState(false);
 
-    static getDerivedStateFromProps(nextProps) {
-        if (nextProps.UI.errors) {
-            return { errors: nextProps.UI.errors }; //basically update the changes in the state
+   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("xs"));
+
+    useEffect(() => {
+        setErrors(props.UI.errors);
+
+        if (!props.UI.errors && !props.UI.loading ) { //there must be a chnage in this.props and prevProps or else it would go to an infinitive loop
+            setBody('');
+            setErrors({});
         }
-        else return null
+    }, [props, props.UI.errors, props.UI.loading]); //only setErrors if props.UI.errors change
+
+    const handleChange = (event) => {
+        setBody(event.target.value);
     }
 
-    componentDidUpdate(prevProps) {
-        //console.log(this.props.UI.errors);
-        if (this.props.UI.errors !== prevProps.UI.errors) {
-            this.setState({ errors: this.props.UI.errors });
-        }
-        if (!this.props.UI.errors && !this.props.UI.loading && this.props.UI.loading !== prevProps.UI.loading) { //there must be a chnage in this.props and prevProps or else it would go to an infinitive loop
-            this.setState({
-                body: '',
-                errors: {}
-            });
-        }
-
-    }
-
-    handleChange = (event) => {
-        this.setState({ [event.target.name]: event.target.value });
-    }
-
-
-    handleSubmit = (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
-        if (this.props.data.episode) {
+        if (props.data.episode) {
             const post = {
-                body: this.state.body,
-                titleImdbId: this.props.titleId,
-                titleId: this.props.data.episode.imdbID,
-                title: this.props.title,
-                season: this.props.data.season,
-                episode: this.props.data.episode.Episode,
-                opinion: this.state.opinionButtonOn,
-                funFact: this.state.funFactButtonOn,
-                plotHoles: this.state.plotHoleButtonOn
+                body: body,
+                titleImdbId: props.titleId,
+                titleId: props.data.episode.imdbID,
+                title: props.title,
+                season: props.data.season,
+                episode: props.data.episode.Episode,
+                opinion: opinionButtonOn,
+                funFact: funFactButtonOn,
+                plotHoles: plotHoleButtonOn
             }
-            this.props.uploadPost(post);
+            props.uploadPost(post);
 
         } else {
-            if (this.props.data.title.Type === 'series' && Number.isInteger(this.props.data.season)) { //if the user is on a season of a tv show/series
+            if (props.data.title.Type === 'series' && Number.isInteger(props.data.season)) { //if the user is on a season of a tv show/series
                 const post = {
-                    body: this.state.body,
-                    titleImdbId: this.props.titleId,
-                    titleId: this.props.data.title.imdbID + this.props.data.season,
-                    title: this.props.data.title.Title,
-                    season: this.props.data.season,
-                    opinion: this.state.opinionButtonOn,
-                    funFact: this.state.funFactButtonOn,
-                    plotHoles: this.state.plotHoleButtonOn
+                    body: body,
+                    titleImdbId: props.titleId,
+                    titleId: props.data.title.imdbID + this.props.data.season,
+                    title: props.data.title.Title,
+                    season: props.data.season,
+                    opinion: opinionButtonOn,
+                    funFact: funFactButtonOn,
+                    plotHoles: plotHoleButtonOn
                 }
-                this.props.uploadPost(post); //this.props.data.season is in the global state (result from the handling of the season dropdown in the titleinfo)
+                props.uploadPost(post); //this.props.data.season is in the global state (result from the handling of the season dropdown in the titleinfo)
             }
             else { // if the user is on the overview movie/series page
                 const post = {
-                    body: this.state.body,
-                    titleImdbId: this.props.titleId,
-                    titleId: this.props.data.title.imdbID,
-                    title: this.props.data.title.Title,
-                    opinion: this.state.opinionButtonOn,
-                    funFact: this.state.funFactButtonOn,
-                    plotHoles: this.state.plotHoleButtonOn
+                    body: body,
+                    titleImdbId: props.titleId,
+                    titleId: props.data.title.imdbID,
+                    title: props.data.title.Title,
+                    opinion: opinionButtonOn,
+                    funFact: funFactButtonOn,
+                    plotHoles: plotHoleButtonOn
                 }
-                this.props.uploadPost(post);
+                props.uploadPost(post);
             }
         }
-        this.setState({
-            body: ''
-        });
+        setBody('');
     };
 
-    handleOpinionButton = () => {
-        this.setState({
-            opinionButtonOn: !this.state.opinionButtonOn
-        });
-        if (!this.state.opinionButtonOn) {
-            this.setState({
-                funFactButtonOn: false, 
-                plotHoleButtonOn: false
-            })
+    const handleOpinionButton = () => {
+        setOpinionButtonOn(!opinionButtonOn);
+        if (!opinionButtonOn) {
+            setFunFactButtonOn(false);
+            setPlotHoleButtonOn(false);
         }
-        
+
     }
 
-    handleFunFactButton = () => {
-        this.setState({
-            funFactButtonOn: !this.state.funFactButtonOn
-        });
-        if (!this.state.funFactButtonOn) {
-            this.setState({
-                opinionButtonOn: false, 
-                plotHoleButtonOn: false
-            })
+    const handleFunFactButton = () => {
+        setFunFactButtonOn(!funFactButtonOn);
+        if (!funFactButtonOn) {
+            setOpinionButtonOn(false);
+            setPlotHoleButtonOn(false);
         }
     }
 
-    handlePlotHolesButton = () => {
-        this.setState({
-            plotHoleButtonOn: !this.state.plotHoleButtonOn
-        });
-        if (!this.state.plotHoleButtonOn) {
-            this.setState({
-                funFactButtonOn: false, 
-                opinionButtonOn: false
-            })
+    const handlePlotHolesButton = () => {
+        setPlotHoleButtonOn(!plotHoleButtonOn);
+        if (!plotHoleButtonOn) {
+            setFunFactButtonOn(false);
+            setOpinionButtonOn(false);
         }
     }
-    render() {
-        const { classes, placeholderTitle } = this.props;
-        const { loading } = this.props.data;
-        const { errors } = this.state;
-        return (
-            <Fragment>
-                <form onSubmit={this.handleSubmit} className={classes.form}>
-                    <TextField
-                        name='body'
-                        type='text'
-                        variant='outlined'
-                        //label='POST'
-                        multiline
-                        rows='5'
-                        placeholder={`Share your thoughts on ${placeholderTitle}`}
-                        value={this.state.body}
-                        error={errors ? (errors.body ? true : false) : false}
-                        helperText={errors ? errors.body : ''}
-                        className={classes.textField}
-                        onChange={this.handleChange}
-                        fullWidth
-                    />
+    const { classes, placeholderTitle } = props;
+    const { loading } = props.data;
+    
+    const fullSizePostForm = (
+         <Fragment>
+            <form onSubmit={handleSubmit} className={classes.form}>
+                <TextField
+                    name='body'
+                    type='text'
+                    variant='outlined'
+                    //label='POST'
+                    multiline
+                    rows='5'
+                    placeholder={`Share your thoughts on ${placeholderTitle}`}
+                    value={body}
+                    error={errors ? (errors.body ? true : false) : false}
+                    helperText={errors ? errors.body : ''}
+                    className={classes.textField}
+                    onChange={handleChange}
+                    fullWidth
+                />
 
-                    <Button
-                        type='submit'
-                        variant='contained'
-                        color='primary'
-                        className={classes.submitButton}
-                        disabled={loading}
-                    >
-                        Submit
+                <Button
+                    type='submit'
+                    variant='contained'
+                    color='primary'
+                    className={classes.submitButton}
+                    disabled={loading}
+                >
+                    Submit
                                 {loading && (
-                            <CircularProgress size={30} className={classes.progressSpinner} />
-                        )}
-                    </Button>
-                </form>
-                <div style={{ marginTop: '-48px', marginBottom: 30, height: 28 }}>
-                    <div>
-                        <ButtonGroup variant="text" color="primary" aria-label="text primary button group">
-                            <Button className={classes.iconButton} onClick={this.handleOpinionButton}>
-                                <Checkbox
-                                    checked={this.state.opinionButtonOn}
-                                    inputProps={{ 'aria-label': 'primary checkbox' }}
-                                    className={classes.checkBox}
-                                />
-                                <Typography variant='body1' className={classes.buttonTypography}>
-                                    Opinion
+                        <CircularProgress size={30} className={classes.progressSpinner} />
+                    )}
+                </Button>
+            </form>
+            <div style={{ marginTop: '-48px', marginBottom: 30, height: 28 }}>
+                <div>
+                    <ButtonGroup variant="text" color="primary" aria-label="text primary button group">
+                        <Button className={classes.iconButton} onClick={handleOpinionButton}>
+                            <Checkbox
+                                checked={opinionButtonOn}
+                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                                className={classes.checkBox}
+                            />
+                            <Typography variant='body1' className={classes.buttonTypography}>
+                                Opinion
                         </Typography>
-                            </Button>
-                            <Button onClick={this.handleFunFactButton} className={classes.iconButton}>
-                                <Checkbox
-                                    checked={this.state.funFactButtonOn}
-                                    inputProps={{ 'aria-label': 'primary checkbox' }}
-                                    className={classes.checkBox}
-                                />
-                                <Typography variant='body1' className={classes.buttonTypography}>
-                                    Fun fact
+                        </Button>
+                        <Button onClick={handleFunFactButton} className={classes.iconButton}>
+                            <Checkbox
+                                checked={funFactButtonOn}
+                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                                className={classes.checkBox}
+                            />
+                            <Typography variant='body1' className={classes.buttonTypography}>
+                                Fun fact
                         </Typography>
-                            </Button>
-                            <Button onClick={this.handlePlotHolesButton} className={classes.iconButton}>
-                                <Checkbox
-                                    checked={this.state.plotHoleButtonOn}
-                                    inputProps={{ 'aria-label': 'primary checkbox' }}
-                                    className={classes.checkBox}
-                                />
-                                <Typography variant='body1' className={classes.buttonTypography}>
-                                    Plot holes
+                        </Button>
+                        <Button onClick={handlePlotHolesButton} className={classes.iconButton}>
+                            <Checkbox
+                                checked={plotHoleButtonOn}
+                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                                className={classes.checkBox}
+                            />
+                            <Typography variant='body1' className={classes.buttonTypography}>
+                                Plot holes
                         </Typography>
-                            </Button>
-                        </ButtonGroup>
-                    </div>
-
+                        </Button>
+                    </ButtonGroup>
                 </div>
-            </Fragment>
-        )
-    }
+
+            </div>
+        </Fragment>
+    );
+
+const mobilePostCategorySelect = (
+    <div style={{ height: 28 }}>
+                <div>
+                    <ButtonGroup variant="text" color="primary" aria-label="text primary button group">
+                        <Button className={classes.iconButton} onClick={handleOpinionButton}>
+                            <Checkbox
+                                checked={opinionButtonOn}
+                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                                className={classes.mobileSizeCheckBox}
+                            />
+                            <Typography variant='body2' className={classes.buttonTypography}>
+                                Opinion
+                        </Typography>
+                        </Button>
+                        <Button onClick={handleFunFactButton} className={classes.iconButton}>
+                            <Checkbox
+                                checked={funFactButtonOn}
+                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                                className={classes.mobileSizeCheckBox}
+                            />
+                            <Typography variant='body2' className={classes.buttonTypography}>
+                                Fun fact
+                        </Typography>
+                        </Button>
+                        <Button onClick={handlePlotHolesButton} className={classes.iconButton}>
+                            <Checkbox
+                                checked={plotHoleButtonOn}
+                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                                className={classes.mobileSizeCheckBox}
+                            />
+                            <Typography variant='body2' className={classes.buttonTypography}>
+                                Plot holes
+                        </Typography>
+                        </Button>
+                    </ButtonGroup>
+                </div>
+            </div>
+)
+        const mobileSizePostForm = (
+         <Fragment>
+            <form onSubmit={handleSubmit} className={classes.form}>
+                <TextField
+                    name='body'
+                    type='text'
+                    variant='outlined'
+                    //label='POST'
+                    multiline
+                    rows='3'
+                    placeholder={`Share your thoughts on ${placeholderTitle}`}
+                    value={body}
+                    error={errors ? (errors.body ? true : false) : false}
+                    helperText={errors ? errors.body : ''}
+                    className={classes.mobileSizeTextField}
+                    onChange={handleChange}
+                    fullWidth
+                />
+{
+                }
+            </form>
+            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '-58px', marginBottom: 13}}>
+            {mobilePostCategorySelect}
+            <IconButton
+                    type='submit'
+                    variant='contained'
+                    color='primary'
+                    className={classes.submitButton}
+                    disabled={loading}
+                >
+                    <SendIcon />
+                                {loading && (
+                        <CircularProgress size={30} className={classes.progressSpinner} />
+                    )}
+                </IconButton>
+                </div>
+        </Fragment>
+    )
+    
+    return (
+       isSmallScreen ? mobileSizePostForm : fullSizePostForm
+    )
 }
 
 const mapStateToProps = (state) => ({

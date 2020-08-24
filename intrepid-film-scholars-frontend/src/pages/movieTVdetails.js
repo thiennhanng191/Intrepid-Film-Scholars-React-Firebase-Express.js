@@ -36,7 +36,7 @@ const styles = (theme) => ({
         }
     },
     titleInfo: {
-        marginBottom: 50
+        marginBottom: 20
     },
     similarContainer: {
         height: 662,
@@ -301,7 +301,6 @@ class movieTVdetails extends Component {
 
         let seasonPostsMarkup = (
             !loading ? (  // if the state has posts then shows the posts
-
                 posts.length !== 0 ? posts.map((post) => <Post titleIdInUrl={titleId} seasonInUrl={seasonInUrl} key={post.postId} post={post} />) : ( //in React when loop thru an array and show some data, each child must have a unique key
                     <p>There are no posts yet</p>
                 )
@@ -309,12 +308,14 @@ class movieTVdetails extends Component {
                     <PostSkeleton />
                 )
         )
+
         const seasonEpisodesMarkup = (
             <Grid container spacing={4}>
-                <Grid item sm={7}>
+                <Grid item xs={12} sm={7} md={8}>
+                <SortPostBar tabValue={this.state.tabValue} handleTabChange={this.handleTabChange} sortBy={this.state.sortBy} handleSortPostSelect={this.handleSortPostSelect} handleCategoryPostSelect={this.handleCategoryPostSelect} handleRecentTopToggleChange={this.handleRecentTopToggleChange} />
                     {seasonPostsMarkup}
                 </Grid>
-                <Grid item sm={5}>
+                <Grid item xs={12} sm={5} md={4}>
                     < div className={classes.episodesContainer} >
                         {
                             tvSeason.Episodes && tvSeason.Episodes.map((episode, index) => (

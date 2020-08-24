@@ -1,12 +1,14 @@
 import { SET_POSTS, SET_TOP_POSTS, SET_OPINION_POSTS, SET_TOP_OPINION_POSTS, SET_FUN_FACT_POSTS, SET_TOP_FUN_FACT_POSTS, SET_PLOT_HOLES_POSTS, SET_TOP_PLOT_HOLES_POSTS, SET_POST, SET_COMMENT, SUBMIT_REPLIED_COMMENT, LIKE_POST, UNLIKE_POST, LOADING_DATA, DELETE_POST, UPLOAD_POST, SUBMIT_COMMENT, SET_MOVIE_GENRES } from '../types';
 import { SET_OPINION_POSTS_BY_TITLEID, SET_TOP_OPINION_POSTS_BY_TITLEID, SET_FUN_FACT_POSTS_BY_TITLEID, SET_TOP_FUN_FACT_POSTS_BY_TITLEID, SET_PLOT_HOLES_POSTS_BY_TITLEID, SET_TOP_PLOT_HOLES_POSTS_BY_TITLEID } from '../types';
-import { SET_TITLES, SET_TITLE, SET_POSTS_BY_TITLEID, SET_TOP_POSTS_BY_TITLEID, CLEAR_POSTS, SET_TV_SEASON, CHOOSE_SEASON, SET_CHOOSE_SEASON, SET_EPISODE_OVERVIEW, SET_EPISODE_DETAILS, CLEAR_EPISODES, SET_TITLE_TMDB, SET_SIMILAR_TITLES, SET_HIGHLY_RATED_MOVIES, SET_HIGHLY_RATED_TV, SET_POPULAR_MOVIES, SET_POPULAR_TV, SET_TRENDING_MOVIES } from '../types';
+import { SET_USER_FOR_USER_PAGE, LOADING_USER, SET_TITLES, CLEAR_SEARCH_TITLES, SET_TITLE, SET_POSTS_BY_TITLEID, SET_TOP_POSTS_BY_TITLEID, CLEAR_POSTS, SET_TV_SEASON, CHOOSE_SEASON, SET_CHOOSE_SEASON, SET_EPISODE_OVERVIEW, SET_EPISODE_DETAILS, CLEAR_EPISODES, SET_TITLE_TMDB, SET_SIMILAR_TITLES, SET_HIGHLY_RATED_MOVIES, SET_HIGHLY_RATED_TV, SET_POPULAR_MOVIES, SET_POPULAR_TV, SET_TRENDING_MOVIES } from '../types';
 import { SET_TRENDING_TV, SET_TV_GENRES, SET_RECOMMENDED_MOVIES, CLEAR_RECOMMENDED_MOVIES, SET_RECOMMENDED_TVS, CLEAR_RECOMMENDED_TVS, LOADING_RECOMMENDED_TITLE } from '../types';
 import { SET_SCROLL_TO_COMMENT, COMMENT_SCROLL_TO, CLEAR_COMMENT_SCROLL_TO, CLEAR_REPLIED_COMMENT_SCROLL_TO, REPLIED_COMMENT_SCROLL_TO, SET_PARENT_COMMENT } from '../types';
 const initialState = {
     posts: [],
     post: {}, //detail of 1 post
     comment: {},
+    loadingUser: false, 
+    userForUserPage: {},
     loading: false,
     titles: [],
     titlesCount: '',
@@ -133,18 +135,36 @@ export default function (state = initialState, action) {
                     ]
                 }
             };
+        case LOADING_USER: 
+            return {
+                ...state, 
+                loadingUser: true
+            }
+        case SET_USER_FOR_USER_PAGE: 
+            return {
+                ...state,
+                loadingUser: false,
+                userForUserPage: action.payload
+            };
         case SET_TITLES:
             return {
                 ...state,
                 titles: action.payload.Search,
                 titlesCount: action.payload.totalResults
             };
+        case CLEAR_SEARCH_TITLES: 
+            return {
+                ...state, 
+                titles: []
+            };
         case SET_TITLE:
             return {
                 ...state,
                 title: action.payload,
+                tvSeason: {},
                 similarTitles: [], //reset similarTitles to get the similar title of the current movie/show
-                chooseSeason: false // not showing any season details, only show the entire series overview
+                chooseSeason: false, // not showing any season details, only show the entire series overview
+                season: 'Seasons'
             };
         case CLEAR_POSTS:
             return {

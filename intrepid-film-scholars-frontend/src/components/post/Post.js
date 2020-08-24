@@ -96,6 +96,7 @@ const styles = (theme) => ({
         },
         color: 'gray',
         fontSize: '1.05rem',
+        width: '100%'
     },
     userHandle: {
         [theme.breakpoints.down('sm')]: {
@@ -116,8 +117,8 @@ const styles = (theme) => ({
             fontSize: '0.875rem'
         },
         fontSize: '1rem',
-        marginTop: 5 
-    }, 
+        marginTop: 5
+    },
     likeButton: {
         paddingLeft: 0
     }
@@ -270,7 +271,7 @@ class Post extends Component {
                             <Typography variant="h6" component={Link} to={`/user/${userHandle}`} color="primary" className={classes.userHandle}>{userHandle}</Typography>
 
                             {title && !titleIdInUrl &&
-                                <Link to={linkToTitleContainingPost} style={{ display: 'inline-flex' }}>
+                                <Link to={linkToTitleContainingPost} style={{ display: 'inline-flex'}}>
                                     {/*  */}
                                     <Typography className={classes.title}>
                                         <Truncate
@@ -280,6 +281,7 @@ class Post extends Component {
                                             in {title}{season && `, season ${season}`}{episode && `, episode ${episode}`}
                                         </Truncate>
                                     </Typography>
+
                                 </Link>
                             }
 

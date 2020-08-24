@@ -35,7 +35,7 @@ const styles = (theme) => ({
         }
     },
     episodeInfo: {
-        marginBottom: 50
+        marginBottom: 20
     },
     textField: {
         marginRight: 20

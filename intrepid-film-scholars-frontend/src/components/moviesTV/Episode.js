@@ -24,6 +24,12 @@ const styles = (theme) => ({
     content: {
         height: '100%'
     },
+    title: {
+        fontSize: '1.2rem',
+        [theme.breakpoints.down('xs')]: {
+            fontSize: '1.1rem'
+        }
+    },
     logoTextContainer: {
         display: 'inline-flex'
     },
@@ -63,7 +69,7 @@ class Episode extends Component {
             <Card className={customClass ? customClass : classes.card}>
                 <CardActionArea className={classes.actionArea} component={Link} to={`/moviesTV/title=${seriesId}/season=${season}/episode=${imdbID}`}>
                     <Grid container spacing={2}>
-                        <Grid item sm={3}>
+                        <Grid item sm={3} xs={4}>
                             <CardMedia
                                 component='img'
                                 alt='poster'
@@ -72,16 +78,16 @@ class Episode extends Component {
                                 title={`${Title} Poster`}
                             />
                         </Grid>
-                        <Grid item sm={9}>
+                        <Grid item sm={9} xs={8}>
                             <CardContent className={classes.content}>
                                 <Typography variant='body1' style={{ color: 'gray' }}>
                                     Season {season} | Episode {Episode}
                                 </Typography>
                                 <div>
-                                    <Typography variant='h6'>
+                                    <Typography className={classes.title}>
                                     <Truncate
                                             lines={2}
-                                            ellipsis={(<span>...</span>)}
+                                            ellipsis={('...')}
                                         >
                                             {Title}
                                         </Truncate>

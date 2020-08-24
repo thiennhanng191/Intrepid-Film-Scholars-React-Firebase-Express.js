@@ -24,6 +24,7 @@ import ProfileIcon from '@material-ui/icons/PersonOutline';
 import LogoutIcon from '@material-ui/icons/ExitToApp';
 import DarkModeIcon from '@material-ui/icons/NightsStayOutlined';
 import MenuIcon from '@material-ui/icons/Menu';
+import CloseIcon from '@material-ui/icons/CloseRounded';
 
 // import logo
 import IFSLogoWithText from '../../images/ifs_logo_with_text_white.svg';
@@ -116,12 +117,13 @@ class Navbar extends Component {
             <Menu
                 anchorEl={this.state.mobileMoreAnchorEl}
                 getContentAnchorEl={null}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
                 id={this.mobileMenuId}
                 keepMounted
                 //transformOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                 open={isMobileMenuOpen}
                 onClose={this.handleMobileMenuClose}
+                style={{disableScrollLock: true }}
             >
                 <MenuItem>
                     <Link to='/moviesTV'>
@@ -223,7 +225,7 @@ class Navbar extends Component {
                                         onClick={this.handleMobileMenuOpen}
                                         color="inherit"
                                     >
-                                        <MenuIcon />
+                                        { isMobileMenuOpen ? <CloseIcon/> : <MenuIcon /> }
                                     </IconButton>
                                 </div>
                             </Fragment>
