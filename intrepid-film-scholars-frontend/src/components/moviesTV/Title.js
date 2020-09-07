@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom';
@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { getTitle } from '../../redux/actions/dataActions';
 
 //import Material UI
+import { useMediaQuery } from "@material-ui/core";
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
@@ -23,15 +24,30 @@ const styles = (theme) => ({
     },
     content: {
         height: '100%',
-        background: 'transparent'
+        background: 'transparent',
+        [theme.breakpoints.down('xs')]: {
+            paddingTop: 12
+        }
     },
     actionArea: {
         height: '100%'
+    }, 
+    titleTypography: {
+        fontSize: '1.2rem',
+        [theme.breakpoints.down('xs')]: {
+            fontSize: '0.9rem'
+        }
+    },
+    yearTypography : {
+        fontSize: '1rem',
+        [theme.breakpoints.down('xs')]: {
+            fontSize: '0.875rem'
+        }
     }
 })
-class Title extends Component {
-    render() {
-        const { classes, title: { Title, Year, Poster, imdbID }, scrollItemClassName } = this.props;
+function Title(props) {
+        const { classes, title: { Title, Year, Poster, imdbID }, scrollItemClassName } = props;
+        const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("xs"));
 
         return (
             <Card variant='outlined' className={scrollItemClassName ? scrollItemClassName : classes.card}>
@@ -39,13 +55,13 @@ class Title extends Component {
                     <CardMedia
                         component='img'
                         alt='poster'
-                        height='240px'
+                        height={isSmallScreen ? '150px' : '240px'} 
                         image={Poster === 'N/A' ? 'https://m.media-amazon.com/images/G/01/imdb/images/nopicture/140x209/film-4001654135._CB466678728_.png' : Poster}
                         title={`${Title} Poster`}
                     />
                     <CardContent className={classes.content}>
                         <div>
-                            <Typography gutterBottom variant='h6' style={{ fontSize: '1.2rem' }}>
+                            <Typography gutterBottom className={classes.titleTypography}>
                                 <Truncate
                                     lines={2}
                                     ellipsis={(<span>...</span>)}
@@ -55,7 +71,7 @@ class Title extends Component {
                             </Typography>
 
                         </div>
-                        <Typography variant='body1' style={{ color: 'gray' }}>
+                        <Typography style={{ color: 'gray' }} className={classes.yearTypography}>
                             {Year}
                         </Typography>
                         {/*
@@ -67,7 +83,6 @@ class Title extends Component {
                 </CardActionArea>
             </Card>
         )
-    }
 }
 
 Title.propTypes = {

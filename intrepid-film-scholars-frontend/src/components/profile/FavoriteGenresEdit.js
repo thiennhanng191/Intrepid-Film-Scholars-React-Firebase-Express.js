@@ -126,8 +126,8 @@ class FavoriteGenresEdit extends Component {
             <Fragment>
                 <Paper className={classes.paper}>
                     <Grid container spacing={2}>
-                        <Grid item sm={1} />
-                        <Grid item sm={10}>
+                        <Grid item sm={1} xs={1}/>
+                        <Grid item sm={10} xs={10}>
                             {
                                 authenticated ? (
                                     <Fragment>
@@ -204,7 +204,7 @@ class FavoriteGenresEdit extends Component {
                             }
 
                         </Grid>
-                        <Grid item sm={1} />
+                        <Grid item sm={1} xs={1}/>
                     </Grid>
 
                 </Paper>

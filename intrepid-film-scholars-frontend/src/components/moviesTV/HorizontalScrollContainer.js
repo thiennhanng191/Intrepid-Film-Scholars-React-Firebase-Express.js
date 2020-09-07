@@ -11,7 +11,9 @@ const styles = (theme) => ({
         overflowX: 'scroll',
         width: '100%',
         padding: '20px 0',
-        
+        [theme.breakpoints.down('xs')]: {
+            height: 255,
+        },
     },
     horizontalScrollItem: {
         flexShrink: 0,
@@ -22,11 +24,15 @@ const styles = (theme) => ({
         backgroundPosition: 'center center',
         height: '100%',
         maxHeight: 390,
+        [theme.breakpoints.down('xs')]: {
+            maxHeight: 255,
+            width: 150,
+        },
         borderColor: 'transparent'
     }
 })
 
-const HorizontalScrollContainer = (props) => {
+function HorizontalScrollContainer(props) {
     const [style, set] = useSpring(() => ({
         transform: "perspective(500px) rotateY(0deg)"
       }));

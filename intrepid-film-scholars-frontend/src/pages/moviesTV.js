@@ -95,7 +95,10 @@ const styles = (theme) => ({
         height: 47,
         width: '100%',
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        '& .MuiToggleButton-label': {
+            height: 0
+        }
     },
     toggleButtonTypography: {
         fontSize: '1rem',

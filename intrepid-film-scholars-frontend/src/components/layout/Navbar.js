@@ -25,6 +25,9 @@ import LogoutIcon from '@material-ui/icons/ExitToApp';
 import DarkModeIcon from '@material-ui/icons/NightsStayOutlined';
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/CloseRounded';
+import MovieIcon from '@material-ui/icons/MovieFilterOutlined';
+import LoginIcon from '@material-ui/icons/ExitToAppOutlined';
+import SignupIcon from '@material-ui/icons/AccountCircleOutlined';
 
 // import logo
 import IFSLogoWithText from '../../images/ifs_logo_with_text_white.svg';
@@ -85,6 +88,11 @@ class Navbar extends Component {
             mobileMoreAnchorEl: event.currentTarget
         })
     };
+    handleMobileMenuClose = (event) => {
+        this.setState({
+            mobileMoreAnchorEl: null
+        })
+    };
 
     handleMobileMenuClose = () => {
         this.setState({
@@ -98,7 +106,12 @@ class Navbar extends Component {
         this.props.logoutUser();
     };
 
-
+    handleMobileLogout = () => {
+        this.setState({
+            mobileMoreAnchorEl: null
+        });
+        this.props.logoutUser();
+    }
     render() {
         const { classes, authenticated, theme, toggleTheme } = this.props;
 
@@ -114,7 +127,8 @@ class Navbar extends Component {
         const isMobileMenuOpen = Boolean(this.state.mobileMoreAnchorEl);
 
         const renderMobileMenu = (
-            <Menu
+            authenticated ? (
+                <Menu
                 anchorEl={this.state.mobileMoreAnchorEl}
                 getContentAnchorEl={null}
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
@@ -123,21 +137,20 @@ class Navbar extends Component {
                 //transformOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                 open={isMobileMenuOpen}
                 onClose={this.handleMobileMenuClose}
-                style={{disableScrollLock: true }}
+                style={{ disableScrollLock: true }}
             >
-                <MenuItem>
-                    <Link to='/moviesTV'>
+                <MenuItem onClick={this.handleMobileMenuClose} component={Link} to={`/moviesTV`}>
+                    <MovieIcon className={classes.dropDownIcon} />
                         <Typography variant='body1'>
-                            DISCOVER
-                                    </Typography>
-                    </Link>
+                            Discover
+                        </Typography>
                 </MenuItem>
-                <MenuItem onClick={this.handleProfileClose} component={Link} to={`/user/${handle}`}>
-                    <ProfileIcon className={classes.dropDownIcon} /> Profile
+                <MenuItem onClick={this.handleMobileMenuClose} component={Link} to={`/user/${handle}`}>
+                <ProfileIcon className={classes.dropDownIcon} /> Profile
                 </MenuItem>
 
-                <MenuItem onClick={this.handleLogout} component={Link} to={`/`}>
-                    <LogoutIcon className={classes.dropDownIcon} />Logout
+                <MenuItem onClick={this.handleMobileLogout} component={Link} to={`/`}>
+                <LogoutIcon className={classes.dropDownIcon} />Logout
                 </MenuItem>
                 <MenuItem style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <div style={{ display: 'flex' }}>
@@ -147,6 +160,40 @@ class Navbar extends Component {
                     <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
                 </MenuItem>
             </Menu>
+            ) : (
+                <Menu
+                anchorEl={this.state.mobileMoreAnchorEl}
+                getContentAnchorEl={null}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                id={this.mobileMenuId}
+                keepMounted
+                //transformOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                open={isMobileMenuOpen}
+                onClose={this.handleMobileMenuClose}
+                style={{ disableScrollLock: true }}
+            >
+                <MenuItem onClick={this.handleMobileMenuClose} component={Link} to={`/moviesTV`}>
+                    <MovieIcon className={classes.dropDownIcon} />
+                        <Typography variant='body1'>
+                            Discover
+                        </Typography>
+                </MenuItem>
+                <MenuItem onClick={this.handleMobileMenuClose} component={Link} to={`/login`}>
+                    <LoginIcon className={classes.dropDownIcon} /> Log in
+                </MenuItem>
+
+                <MenuItem onClick={this.handleMobileMenuClose} component={Link} to={`/signup`}>
+                    <SignupIcon className={classes.dropDownIcon} />Sign up
+                </MenuItem>
+                <MenuItem style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <div style={{ display: 'flex' }}>
+                        <DarkModeIcon className={classes.dropDownIcon} />Dark Mode
+                </div>
+
+                    <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+                </MenuItem>
+            </Menu>
+            ) 
         );
         const renderProfileMenu = (
             <Menu
@@ -181,7 +228,6 @@ class Navbar extends Component {
             <div className={classes.grow}>
                 <AppBar>
                     <Toolbar>
-                        {console.log(authenticated)}
                         {authenticated ? ( /* if user is authenticated */
                             <Fragment>
                                 <div className={classes.sectionDesktop}>
@@ -218,6 +264,13 @@ class Navbar extends Component {
                                         </CommonButton>
                                     </Link>
                                     <div className={classes.grow} />
+                                    {/*
+                                    <Link to='/moviesTV' style={{ marginRight: 15 }}>
+                                        <Typography variant='body1'>
+                                            DISCOVER
+                                    </Typography>
+                                    </Link>
+                                    */}
                                     <IconButton
                                         aria-label="show more"
                                         aria-controls={this.mobileMenuId}
@@ -225,29 +278,57 @@ class Navbar extends Component {
                                         onClick={this.handleMobileMenuOpen}
                                         color="inherit"
                                     >
-                                        { isMobileMenuOpen ? <CloseIcon/> : <MenuIcon /> }
+                                        {isMobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
                                     </IconButton>
                                 </div>
                             </Fragment>
                         ) : ( /* user not authenticated */
                                 <Fragment>
-                                    <Link to='/'>
-                                        <CommonButton tooltip='Home'>
-                                            <img src={IFSLogoWithText} alt='logo' className={classes.logo} />
-                                        </CommonButton>
-                                    </Link>
-                                    <div className={classes.grow} />
-                                    <Link to='/login' style={{marginRight: 15}}>
-                                        <Typography variant='body1'>
-                                            LOG IN
-                                    </Typography>
-                                    </Link>
-                                    <Link to='/signup'>
-                                        <Typography variant='body1'>
-                                            SIGN UP
-                                    </Typography>
-                                    </Link>
+                                    <div className={classes.sectionDesktop}>
+                                        <Fragment>
+                                            <Link to='/'>
+                                                <CommonButton tooltip='Home'>
+                                                    <img src={IFSLogoWithText} alt='logo' className={classes.logo} />
+                                                </CommonButton>
+                                            </Link>
+                                            <div className={classes.grow} />
+                                            <Link to='/moviesTV' style={{ marginRight: 15 }}>
+                                                <Typography variant='body1'>
+                                                    DISCOVER
+                                                </Typography>
+                                            </Link>
+                                            <Link to='/login' style={{ marginRight: 15 }}>
+                                                <Typography variant='body1'>
+                                                    LOG IN
+                                                </Typography>
+                                            </Link>
+                                            <Link to='/signup'>
+                                                <Typography variant='body1'>
+                                                    SIGN UP
+                                                </Typography>
+                                            </Link>
+                                        </Fragment>
+                                    </div>
+
+                                    <div className={classes.sectionMobile}>
+                                        <Link to='/'>
+                                            <CommonButton tooltip='Home'>
+                                                <img src={IFSLogoWithText} alt='logo' className={classes.logo} />
+                                            </CommonButton>
+                                        </Link>
+                                        <div className={classes.grow} />
+                                        <IconButton
+                                            aria-label="show more"
+                                            aria-controls={this.mobileMenuId}
+                                            aria-haspopup="true"
+                                            onClick={this.handleMobileMenuOpen}
+                                            color="inherit"
+                                        >
+                                            {isMobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
+                                        </IconButton>
+                                    </div>
                                 </Fragment>
+
                             )}
                     </Toolbar>
                 </AppBar>

@@ -316,7 +316,7 @@ class Post extends Component {
 
                 </CardContent>
 
-
+{comments && comments.length > 0 &&
                 <Collapse in={this.state.expanded} timeout='auto' unmountOnExit>
                     <CardContent className={classes.collapseContent}>
                         <CommentForm postId={postId} />
@@ -330,6 +330,7 @@ class Post extends Component {
                         }
                     </CardContent>
                 </Collapse>
+    }
             </Card>
         )
     }

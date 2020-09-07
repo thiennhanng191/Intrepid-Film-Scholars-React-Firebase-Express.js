@@ -93,7 +93,8 @@ function StaticProfile(props) {
         }
     } = props;
 
-    const { loadingUser } = props.data;
+
+    const { loadingUser } = props.user;
     const [expanded, setExpanded] = useState(false);
     const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("xs"));
 

@@ -28,6 +28,7 @@ import MuiLink from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
+import Badge from '@material-ui/core/Badge';
 
 // Import Redux
 import { connect } from 'react-redux';
@@ -88,6 +89,11 @@ const styles = (theme) => ({
         [theme.breakpoints.down('xs')]: {
             left: '90%',
         }
+    },
+    avatarBadge: {
+        '& .MuiBadge-anchorOriginBottomRightRectangle': {
+            transform: 'scale(1) translate(-20%, -20%)'
+        }
     }
 });
 
@@ -116,10 +122,11 @@ function Profile(props) {
 
         user: {
             credentials: { handle, createdAt, imageUrl, bio, website, location, favoriteFilms, movieGenres, tvGenres, favoriteQuote },
-            loading, //different from the UI loading
             authenticated
         },
     } = props;
+
+    const { loadingUser } = props.user;
 
     const [expanded, setExpanded] = useState(false);
 
@@ -134,17 +141,26 @@ function Profile(props) {
             <div className={classes.profile}>
                 <Grid container spacing={2} className={classes.basicProfileContainer}>
                     <Grid item sm={5}>
-                        <div className='image-wrapper'>
-                            <Avatar src={imageUrl} className={classes.avatar} />
+                        <div>
                             <input
                                 type='file'
                                 id='inputImage'
                                 hidden='hidden'
                                 onChange={handleImageChange}
                             />
-                            <CommonButton tooltip='Edit Profile Picture' onClick={handleEditPicture} btnClassName='button'>
-                                <CameraIcon color='primary' className={classes.avatarIcon} />
-                            </CommonButton>
+                            <Badge
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'right',
+                                }}
+                                badgeContent={
+                                    <CommonButton tooltip='Edit Profile Picture' onClick={handleEditPicture} /* btnClassName='button' */>
+                                        <CameraIcon color='primary' className={classes.avatarIcon} />
+                                    </CommonButton>
+                                } 
+                                className={classes.avatarBadge}>
+                                <Avatar src={imageUrl} className={classes.avatar} />
+                            </Badge>
                         </div>
                     </Grid>
                     <Grid item sm={7}>
@@ -259,16 +275,25 @@ function Profile(props) {
                 <Grid container spacing={4}>
                     <Grid item xs={4}>
                         <div className={classes.mobileImageWrapper}>
-                            <Avatar src={imageUrl} className={classes.avatar} />
                             <input
                                 type='file'
                                 id='inputImage'
                                 hidden='hidden'
                                 onChange={handleImageChange}
                             />
-                            <CommonButton tooltip='Edit Profile Picture' onClick={handleEditPicture} btnClassName={classes.addProfileImageButton}>
-                                <CameraIcon color='primary' className={classes.avatarIcon} />
-                            </CommonButton>
+                            <Badge
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'right',
+                                }}
+                                badgeContent={
+                                    <CommonButton tooltip='Edit Profile Picture' onClick={handleEditPicture} /* btnClassName='button' */>
+                                        <CameraIcon color='primary' className={classes.avatarIcon} />
+                                    </CommonButton>
+                                } 
+                                className={classes.avatarBadge}>
+                                <Avatar src={imageUrl} className={classes.avatar} />
+                            </Badge>
                         </div>
                     </Grid>
                     <Grid item xs={8}>
@@ -398,7 +423,7 @@ function Profile(props) {
         </Card>
     )
     let profileMarkup =
-        !loading ?
+        !loadingUser ?
             (authenticated ?
                 (
                     isSmallScreen ? mobileSizeRender : fullSizeRender
