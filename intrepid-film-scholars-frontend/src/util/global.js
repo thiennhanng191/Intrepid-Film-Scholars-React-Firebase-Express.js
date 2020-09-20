@@ -173,4 +173,8 @@ input:-webkit-autofill {
   color: ${({ theme }) => theme.dateText};
 }
 
+#expand-profile-menu-icon {
+  color: ${({ theme }) => theme.text};
+}
+
   `;

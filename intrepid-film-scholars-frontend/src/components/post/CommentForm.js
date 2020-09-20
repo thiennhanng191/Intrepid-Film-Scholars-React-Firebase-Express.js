@@ -169,7 +169,9 @@ class CommentForm extends Component {
         console.log(`old body ${this.state.body}`)
         //this.props.submitComment(this.props.postId, { body: this.state.body }); // body is the textfield value
         this.props.submitComment(this.props.postId, { body: newBody, mentions: this.state.mentionedUsersArray }); // body is the textfield value
-        //this.props.getPost(this.props.postId);
+        this.setState({
+            editorState: EditorState.createEmpty()
+        });
     }
 
     render() {

@@ -7,10 +7,11 @@ import PropTypes from 'prop-types';
 import CommonButton from '../../util/CommonButton';
 import ThemeToggle from '../../util/ThemeToggle';
 import Notifications from './Notifications';
+import AboutDialog from './AboutDialog';
 
 import { logoutUser } from '../../redux/actions/userActions';
 
-// import material-ui related things
+// import material-ui
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Avatar from '@material-ui/core/Avatar';
@@ -27,10 +28,12 @@ import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/CloseRounded';
 import MovieIcon from '@material-ui/icons/MovieFilterOutlined';
 import LoginIcon from '@material-ui/icons/ExitToAppOutlined';
-import SignupIcon from '@material-ui/icons/AccountCircleOutlined';
-
+import SignupIcon from '@material-ui/icons/PersonAddOutlined';
 // import logo
 import IFSLogoWithText from '../../images/ifs_logo_with_text_white.svg';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMoreRounded';
+import EmptyProfileIcon from '@material-ui/icons/AccountCircleOutlined';
+import InfoIcon from '@material-ui/icons/InfoOutlined';
 
 const styles = (theme) => ({
     ...theme.spreadThis,
@@ -61,6 +64,9 @@ const styles = (theme) => ({
             display: 'none',
         },
     },
+    expandMoreIcon: {
+        transform: 'rotate(180deg)'
+    }
 })
 
 const profileMenuId = 'primary-profile-menu-mobile';
@@ -69,17 +75,34 @@ class Navbar extends Component {
     state = {
         profileAnchorEl: null,
         mobileMoreAnchorEl: null,
+        isProfileMenuOpen: false,
+        openAboutDialog: false
     };
 
+    handleOpenAboutDialog = (event) => {
+        this.setState({
+            profileAnchorEl: null,
+            mobileMoreAnchorEl: null,
+            isProfileMenuOpen: false,
+            openAboutDialog: true
+        });
+    }
+    handleAboutDialogClose = () => {
+        this.setState({
+            openAboutDialog: false
+        })
+    }
     handleProfileOpen = (event) => {
         this.setState({
-            profileAnchorEl: event.currentTarget
+            profileAnchorEl: event.currentTarget,
+            isProfileMenuOpen: true
         });
     };
 
     handleProfileClose = () => {
         this.setState({
-            profileAnchorEl: null
+            profileAnchorEl: null,
+            isProfileMenuOpen: false
         });
     };
 
@@ -129,99 +152,140 @@ class Navbar extends Component {
         const renderMobileMenu = (
             authenticated ? (
                 <Menu
-                anchorEl={this.state.mobileMoreAnchorEl}
-                getContentAnchorEl={null}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-                id={this.mobileMenuId}
-                keepMounted
-                //transformOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                open={isMobileMenuOpen}
-                onClose={this.handleMobileMenuClose}
-                style={{ disableScrollLock: true }}
-            >
-                <MenuItem onClick={this.handleMobileMenuClose} component={Link} to={`/moviesTV`}>
-                    <MovieIcon className={classes.dropDownIcon} />
+                    anchorEl={this.state.mobileMoreAnchorEl}
+                    getContentAnchorEl={null}
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                    id={this.mobileMenuId}
+                    keepMounted
+                    //transformOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                    open={isMobileMenuOpen}
+                    onClose={this.handleMobileMenuClose}
+                    style={{ disableScrollLock: true }}
+                >
+                    <MenuItem onClick={this.handleMobileMenuClose} component={Link} to={`/moviesTV`}>
+                        <MovieIcon className={classes.dropDownIcon} />
                         <Typography variant='body1'>
                             Discover
                         </Typography>
-                </MenuItem>
-                <MenuItem onClick={this.handleMobileMenuClose} component={Link} to={`/user/${handle}`}>
-                <ProfileIcon className={classes.dropDownIcon} /> Profile
+                    </MenuItem>
+                    <MenuItem onClick={this.handleOpenAboutDialog}>
+                        <InfoIcon className={classes.dropDownIcon} /> About
+                    </MenuItem>
+                    <MenuItem onClick={this.handleMobileMenuClose} component={Link} to={`/user/${handle}`}>
+                        <ProfileIcon className={classes.dropDownIcon} /> Profile
                 </MenuItem>
 
-                <MenuItem onClick={this.handleMobileLogout} component={Link} to={`/`}>
-                <LogoutIcon className={classes.dropDownIcon} />Logout
+                    <MenuItem onClick={this.handleMobileLogout} component={Link} to={`/`}>
+                        <LogoutIcon className={classes.dropDownIcon} />Logout
                 </MenuItem>
-                <MenuItem style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <div style={{ display: 'flex' }}>
-                        <DarkModeIcon className={classes.dropDownIcon} />Dark Mode
-                </div>
+                    <MenuItem style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <div style={{ display: 'flex' }}>
+                            <DarkModeIcon className={classes.dropDownIcon} />Dark Mode
+                        </div>
 
-                    <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
-                </MenuItem>
-            </Menu>
+                        <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+                    </MenuItem>
+                </Menu>
             ) : (
-                <Menu
-                anchorEl={this.state.mobileMoreAnchorEl}
-                getContentAnchorEl={null}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-                id={this.mobileMenuId}
-                keepMounted
-                //transformOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                open={isMobileMenuOpen}
-                onClose={this.handleMobileMenuClose}
-                style={{ disableScrollLock: true }}
-            >
-                <MenuItem onClick={this.handleMobileMenuClose} component={Link} to={`/moviesTV`}>
-                    <MovieIcon className={classes.dropDownIcon} />
-                        <Typography variant='body1'>
-                            Discover
+                    <Menu
+                        anchorEl={this.state.mobileMoreAnchorEl}
+                        getContentAnchorEl={null}
+                        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                        id={this.mobileMenuId}
+                        keepMounted
+                        //transformOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                        open={isMobileMenuOpen}
+                        onClose={this.handleMobileMenuClose}
+                        style={{ disableScrollLock: true }}
+                    >
+                        <MenuItem onClick={this.handleMobileMenuClose} component={Link} to={`/moviesTV`}>
+                            <MovieIcon className={classes.dropDownIcon} />
+                            <Typography variant='body1'>
+                                Discover
                         </Typography>
-                </MenuItem>
-                <MenuItem onClick={this.handleMobileMenuClose} component={Link} to={`/login`}>
-                    <LoginIcon className={classes.dropDownIcon} /> Log in
+                        </MenuItem>
+                        <MenuItem onClick={this.handleOpenAboutDialog}>
+                            <InfoIcon className={classes.dropDownIcon} /> About
+                    </MenuItem>
+                        <MenuItem onClick={this.handleMobileMenuClose} component={Link} to={`/login`}>
+                            <LoginIcon className={classes.dropDownIcon} /> Log in
                 </MenuItem>
 
-                <MenuItem onClick={this.handleMobileMenuClose} component={Link} to={`/signup`}>
-                    <SignupIcon className={classes.dropDownIcon} />Sign up
+                        <MenuItem onClick={this.handleMobileMenuClose} component={Link} to={`/signup`}>
+                            <SignupIcon className={classes.dropDownIcon} />Sign up
                 </MenuItem>
-                <MenuItem style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <div style={{ display: 'flex' }}>
-                        <DarkModeIcon className={classes.dropDownIcon} />Dark Mode
+                        <MenuItem style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <div style={{ display: 'flex' }}>
+                                <DarkModeIcon className={classes.dropDownIcon} />Dark Mode
                 </div>
 
-                    <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
-                </MenuItem>
-            </Menu>
-            ) 
+                            <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+                        </MenuItem>
+                    </Menu>
+                )
         );
         const renderProfileMenu = (
-            <Menu
-                anchorEl={this.state.profileAnchorEl}
-                getContentAnchorEl={null} //set this to null to set custom anchor origin position
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                id={profileMenuId}
-                keepMounted
-                //transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-                open={isProfileMenuOpen}
-                onClose={this.handleProfileClose}
-            >
+            authenticated ? (
+                <Menu
+                    anchorEl={this.state.profileAnchorEl}
+                    getContentAnchorEl={null} //set this to null to set custom anchor origin position
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                    id={profileMenuId}
+                    keepMounted
+                    //transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                    open={isProfileMenuOpen}
+                    onClose={this.handleProfileClose}
+                >
+                    <MenuItem onClick={this.handleOpenAboutDialog}>
+                        <InfoIcon className={classes.dropDownIcon} /> About
+                    </MenuItem>
 
-                <MenuItem onClick={this.handleProfileClose} component={Link} to={`/user/${handle}`}>
-                    <ProfileIcon className={classes.dropDownIcon} /> Profile
+                    <MenuItem onClick={this.handleProfileClose} component={Link} to={`/user/${handle}`}>
+                        <ProfileIcon className={classes.dropDownIcon} /> Profile
                 </MenuItem>
 
-                <MenuItem onClick={this.handleLogout} component={Link} to={`/`}>
-                    <LogoutIcon className={classes.dropDownIcon} />Logout
+                    <MenuItem onClick={this.handleLogout} component={Link} to={`/`}>
+                        <LogoutIcon className={classes.dropDownIcon} />Logout
                 </MenuItem>
-                <MenuItem style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <div style={{ display: 'flex' }}>
-                        <DarkModeIcon className={classes.dropDownIcon} />Dark Mode
+                    <MenuItem style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <div style={{ display: 'flex' }}>
+                            <DarkModeIcon className={classes.dropDownIcon} />Dark Mode
                 </div>
 
-                    <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
-                </MenuItem>
-            </Menu>
+                        <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+                    </MenuItem>
+                </Menu>) : (
+                    <Menu
+                        anchorEl={this.state.profileAnchorEl}
+                        getContentAnchorEl={null} //set this to null to set custom anchor origin position
+                        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                        id={profileMenuId}
+                        keepMounted
+                        //transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                        open={isProfileMenuOpen}
+                        onClose={this.handleProfileClose}
+                    >
+                        <MenuItem onClick={this.handleOpenAboutDialog}>
+                            <InfoIcon className={classes.dropDownIcon} /> About
+                    </MenuItem>
+
+                        <MenuItem onClick={this.handleMobileMenuClose} component={Link} to={`/login`}>
+                            <LoginIcon className={classes.dropDownIcon} /> Log in
+                        </MenuItem>
+
+                        <MenuItem onClick={this.handleMobileMenuClose} component={Link} to={`/signup`}>
+                            <SignupIcon className={classes.dropDownIcon} />Sign up
+                        </MenuItem>
+                        <MenuItem style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <div style={{ display: 'flex' }}>
+                                <DarkModeIcon className={classes.dropDownIcon} />Dark Mode
+                </div>
+
+                            <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+                        </MenuItem>
+                    </Menu>
+                )
+
         );
         //console.log(authenticated);
         return (
@@ -253,7 +317,10 @@ class Navbar extends Component {
                                     >
                                         <Avatar src={imageUrl} alt='User Profile' className={classes.avatar} />
                                         <span>
-                                            <Typography variant='h6'>{handle}</Typography>
+                                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                <Typography variant='h6' style={{ marginRight: 10 }} >{handle}</Typography>
+                                                <ExpandMoreIcon id="expand-profile-menu-icon" className={this.state.isProfileMenuOpen && classes.expandMoreIcon} />
+                                            </div>
                                         </span>
                                     </IconButton>
                                 </div>
@@ -292,21 +359,25 @@ class Navbar extends Component {
                                                 </CommonButton>
                                             </Link>
                                             <div className={classes.grow} />
-                                            <Link to='/moviesTV' style={{ marginRight: 15 }}>
+                                            <Link to='/moviesTV' style={{ marginRight: 5 }}>
                                                 <Typography variant='body1'>
                                                     DISCOVER
                                                 </Typography>
                                             </Link>
-                                            <Link to='/login' style={{ marginRight: 15 }}>
-                                                <Typography variant='body1'>
-                                                    LOG IN
-                                                </Typography>
-                                            </Link>
-                                            <Link to='/signup'>
-                                                <Typography variant='body1'>
-                                                    SIGN UP
-                                                </Typography>
-                                            </Link>
+                                            <IconButton
+                                                aria-label='user profile'
+                                                aria-controls={profileMenuId}
+                                                aria-haspopup='true'
+                                                onClick={this.handleProfileOpen}
+                                            >
+                                                <EmptyProfileIcon id="expand-profile-menu-icon" style={{ marginRight: 5 }} />
+                                                <span>
+                                                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                        <Typography variant='body1' style={{ marginRight: 10 }} > PROFILE </Typography>
+                                                        <ExpandMoreIcon id="expand-profile-menu-icon" className={this.state.isProfileMenuOpen && classes.expandMoreIcon} />
+                                                    </div>
+                                                </span>
+                                            </IconButton>
                                         </Fragment>
                                     </div>
 
@@ -334,6 +405,7 @@ class Navbar extends Component {
                 </AppBar>
                 {renderProfileMenu}
                 {renderMobileMenu}
+                <AboutDialog openDialog={this.state.openAboutDialog} handleDialogClose={this.handleAboutDialogClose} />
             </div >
 
         )

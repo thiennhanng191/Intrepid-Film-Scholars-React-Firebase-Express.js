@@ -6,7 +6,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 //import Material UI
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 //import Redux
 import { connect } from 'react-redux';
@@ -42,19 +42,14 @@ class SimilarTitle extends Component {
             <Card className={customClass ? customClass : classes.card}> {/* can pass custom styling down from parent props*/}
                 <Grid container spacing={0}>
                     <Grid item xs={4}>
-                        <CardMedia
-                            component='img'
-                            alt='poster'
-                            height='150px'
-                            src={'https://m.media-amazon.com/images/G/01/imdb/images/nopicture/140x209/film-4001654135._CB466678728_.png'}
-                            title={'Poster'}
-                        />
+                        <Skeleton variant="rect" animation="wave" height={150} />
                     </Grid>
                     <Grid item xs={8}>
                         <CardContent className={classes.content}>
-                            <div className={classes.fullLineTitle} />
-                            <div className={classes.fullLineTitle} />
-                            <div className={classes.halfLine} />
+                            <Skeleton animation="wave" height={25} />
+                            <Skeleton animation="wave" height={25} width="80%" />
+                            <div style={{height: 15}} />
+                            <Skeleton animation="wave" height={15} width="50%" />
                         </CardContent>
                     </Grid>
                 </Grid>
