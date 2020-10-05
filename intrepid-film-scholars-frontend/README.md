@@ -11,6 +11,7 @@ In the homepage, users can see different posts by other users as well as able to
 
 ### Light/Dark Mode: 
 [![Screen-Shot-2020-10-05-at-12-08-31-AM.png](https://i.postimg.cc/WpGn5Dfk/Screen-Shot-2020-10-05-at-12-08-31-AM.png)](https://postimg.cc/ThPgwPxd)
+
 Users can alternate between light mode and dark mode based on their reference. 
 
 
