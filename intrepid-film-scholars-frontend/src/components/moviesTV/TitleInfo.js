@@ -212,12 +212,6 @@ function TitleInfo(props) {
                                 </Typography>
                             </div>
                             }
-
-                            {/*
-                        <Button  variant='containted' color='primary'>
-                            Details
-                        </Button>
-                        */}
                             {Type === 'series' && seasonSelectButton}
                         </CardContent>
                     </div>
