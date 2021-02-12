@@ -15,8 +15,8 @@ export const darkTheme = {
     textFieldLabelFocused: '#01B2BF',
     gradient: 'linear-gradient(#091236, #1E215D)',
     mentionSuggestionsBackground: '#19191a',
-    mentionSuggestionsBoxShadow: '0px 4px 30px 0px rgba(35, 35, 1)',
-    mentionSuggestionsBorder: 'rgba(17, 17, 17, 1)',
+    mentionSuggestionsBoxShadow: '0px 4px 30px 0px rgb(1, 16, 17)',
+    mentionSuggestionsBorder: 'rgba(1, 16, 17, 1)',
     dateText: 'lightgray'
 }
 
@@ -37,8 +37,8 @@ export const lightTheme = {
     textFieldLabelFocused: '#016B73',
     gradient: 'linear-gradient(#39598A, #79D7ED)',
     appBar: '#3BB6BF',
-    mentionSuggestionsBackground: '#cce7ff',
-    mentionSuggestionsBoxShadow: '0px 4px 30px 0px rgba(220, 220, 1)',
-    mentionSuggestionsBorder: 'rgba(238, 238, 238, 1)',
+    mentionSuggestionsBackground: '#FFF',
+    mentionSuggestionsBoxShadow: '0px 4px 30px 0px rgb(216, 238, 240)',
+    mentionSuggestionsBorder: 'rgba(216, 238, 240, 1)',
     dateText: 'darkgray'
 }

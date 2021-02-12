@@ -330,6 +330,10 @@ class movieTVdetails extends Component {
         );
 
         const currentTitle = Title && seasonInUrl ? `${Title} season ${this.props.data.season}` : `${Title}`
+        /*
+        console.log("currentTitle: ", currentTitle);
+        console.log("title: ", Title);
+        */
         return (
             <Fragment>
                 <div className={classes.titleInfo}>

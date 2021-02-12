@@ -14,10 +14,9 @@ const FBAuth = require('./util/fbAuth');
 const { db } = require('./util/admin');
 
 
-const { getAllPosts, getAllPostsOrderedByLikes, uploadAPost, getPost, getComment, getRepliedComment, commentOnPost, replyCommentOnPost, likePost, unlikePost, deletePost } = require('./handlers/posts');
+const { getAllPosts, getAllPostsOrderedByLikes, uploadAPost, getPost, deleteComment, getComment, getRepliedComment, commentOnPost, replyCommentOnPost, likePost, unlikePost, deletePost } = require('./handlers/posts');
 const { getPostsById, getPostsByIdOrderedByLikes, getPostsByOpinion, getPostsByOpinionOrderedByLikes, getPostsByFunFact, getPostsByFunFactOrderedByLikes, getPostsByPlotHoles, getPostsByPlotHolesOrderedByLikes, getPostsByIdByOpinion, getPostsByIdByFunFact, getPostsByIdByPlotHoles, getPostsByIdByOpinionOrderedByLikes, getPostsByIdByFunFactOrderedByLikes, getPostsByIdByPlotHolesOrderedByLikes } = require('./handlers/posts');
 const { signup, login, uploadImage, addUserDetails, getAuthenticatedUser, getUserDetails, getAllUsers, markNotificationRead, getAuthenticatedUserNotifications } = require('./handlers/users');
-
 
 /*
     posts routes
@@ -40,6 +39,8 @@ app.get('/posts/:titleId/top/funFact', getPostsByIdByFunFactOrderedByLikes);
 app.get('/posts/:titleId/top/plotHoles', getPostsByIdByPlotHolesOrderedByLikes);
 
 app.get('/comment/:commentId', getComment);
+app.delete('/comment/:commentId', FBAuth, deleteComment);
+
 app.get('/repliedComment/:repliedCommentId', getRepliedComment);
 app.post('/post', FBAuth, uploadAPost); //upload a post route - it's a protected route
 app.get('/post/:postId', getPost); //':' here signals a route's parameter -- not a protected route, no need to log in to see a post

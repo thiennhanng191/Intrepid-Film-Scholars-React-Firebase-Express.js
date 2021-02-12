@@ -18,22 +18,6 @@ export const loginUser = (userData, history) => (dispatch) => {
                     payload: err.response.data
                 })
             }
-
-            /*
-            const errorMessage = (() => {
-                if (err.response) {
-                    return err.response.data
-                } else if (err.request) {
-                    return err.request;
-                } else 
-                    return err.message;
-            })
-
-            dispatch({
-                type: SET_ERRORS,
-                payload: errorMessage//err.response.data
-            });
-            */
         });
 }
 

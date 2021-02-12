@@ -100,7 +100,9 @@ function PostForm(props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (props.data.episode) {
+        console.log("props.data.episode: ", props.data.episode);
+        if (Object.keys(props.data.episode).length !== 0) { // if user is on an page of a tv show's episode
+            console.log("checkpoint 0");
             const post = {
                 body: body,
                 titleImdbId: props.titleId,
@@ -116,6 +118,7 @@ function PostForm(props) {
 
         } else {
             if (props.data.title.Type === 'series' && Number.isInteger(props.data.season)) { //if the user is on a season of a tv show/series
+                console.log("checkpoint 1");
                 const post = {
                     body: body,
                     titleImdbId: props.titleId,
@@ -129,6 +132,7 @@ function PostForm(props) {
                 props.uploadPost(post); //this.props.data.season is in the global state (result from the handling of the season dropdown in the titleinfo)
             }
             else { // if the user is on the overview movie/series page
+                console.log("checkpoint 2"); 
                 const post = {
                     body: body,
                     titleImdbId: props.titleId,

@@ -21,11 +21,11 @@ class Comments extends Component {
 
     
     render() {
-        const { comments, } = this.props;
+        const { comments } = this.props;
 
         return (
             <Grid container>
-                {comments.map((comment, index) => { // loop through the comments
+                {comments && comments.map((comment, index) => { // loop through the comments
                     // const { body, createdAt, userImage, userHandle, repliedCommentsCount } = comment;
                     return (
                         <Comment comment={comment} key={index} index={index} refProp={this.myRef} scrollToRef={this.scrollToMyRef}/>

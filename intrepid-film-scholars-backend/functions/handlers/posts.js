@@ -11,6 +11,8 @@ exports.getAllPosts = (req, res) => {
                 console.log(`doc data ${doc.data()}`);
                 posts.push({ // the object spread opereator ... is not avaiable in node 6, so we have to do it item by item like below
                     postId: doc.id,
+                    ...doc.data()
+                    /*
                     body: doc.data().body,
                     userHandle: doc.data().userHandle,
                     createdAt: doc.data().createdAt,
@@ -26,7 +28,7 @@ exports.getAllPosts = (req, res) => {
                     opinion: doc.data().opinion,
                     funFact: doc.data().funFact,
                     plotHoles: doc.data().plotHoles
-                    //checkInLocation: doc.data().checkInLocation
+                    */
                 });
             });
             return res.json(posts);
@@ -47,22 +49,7 @@ exports.getAllPostsOrderedByLikes = (req, res) => {
                 console.log(`doc data ${doc.data()}`);
                 posts.push({ // the object spread opereator ... is not avaiable in node 6, so we have to do it item by item like below
                     postId: doc.id,
-                    body: doc.data().body,
-                    userHandle: doc.data().userHandle,
-                    createdAt: doc.data().createdAt,
-                    commentCount: doc.data().commentCount,
-                    likeCount: doc.data().likeCount,
-                    userImage: doc.data().userImage,
-                    postImage: doc.data().postImageUrl,
-                    titleImdbId: doc.data().titleImdbId,
-                    titleId: doc.data().titleId,
-                    title: doc.data().title,
-                    season: doc.data().season,
-                    episode: doc.data().episode,
-                    opinion: doc.data().opinion,
-                    funFact: doc.data().funFact,
-                    plotHoles: doc.data().plotHoles
-                    //checkInLocation: doc.data().checkInLocation
+                    ...doc.data()
                 });
             });
             return res.json(posts);
@@ -84,22 +71,7 @@ exports.getPostsById = (req, res) => {
                 console.log(`doc data ${doc.data()}`);
                 posts.push({ // the object spread opereator ... is not avaiable in node 6, so we have to do it item by item like below
                     postId: doc.id,
-                    body: doc.data().body,
-                    userHandle: doc.data().userHandle,
-                    createdAt: doc.data().createdAt,
-                    commentCount: doc.data().commentCount,
-                    likeCount: doc.data().likeCount,
-                    userImage: doc.data().userImage,
-                    postImage: doc.data().postImageUrl,
-                    titleImdbId: doc.data().titleImdbId,
-                    titleId: doc.data().titleId,
-                    title: doc.data().title,
-                    season: doc.data().season,
-                    episode: doc.data().episode,
-                    opinion: doc.data().opinion,
-                    funFact: doc.data().funFact,
-                    plotHoles: doc.data().plotHoles
-                    //checkInLocation: doc.data().checkInLocation
+                    ...doc.data()
                 });
             });
             return res.json(posts);
@@ -121,22 +93,7 @@ exports.getPostsByIdOrderedByLikes = (req, res) => {
                 console.log(`doc data ${doc.data()}`);
                 posts.push({ // the object spread opereator ... is not avaiable in node 6, so we have to do it item by item like below
                     postId: doc.id,
-                    body: doc.data().body,
-                    userHandle: doc.data().userHandle,
-                    createdAt: doc.data().createdAt,
-                    commentCount: doc.data().commentCount,
-                    likeCount: doc.data().likeCount,
-                    userImage: doc.data().userImage,
-                    postImage: doc.data().postImageUrl,
-                    titleImdbId: doc.data().titleImdbId,
-                    titleId: doc.data().titleId,
-                    title: doc.data().title,
-                    season: doc.data().season,
-                    episode: doc.data().episode,
-                    opinion: doc.data().opinion,
-                    funFact: doc.data().funFact,
-                    plotHoles: doc.data().plotHoles
-                    //checkInLocation: doc.data().checkInLocation
+                    ...doc.data()
                 });
             });
             return res.json(posts);
@@ -158,21 +115,7 @@ exports.getPostsByOpinion = (req, res) => {
                 console.log(`doc data ${doc.data()}`);
                 posts.push({ // the object spread opereator ... is not avaiable in node 6, so we have to do it item by item like below
                     postId: doc.id,
-                    body: doc.data().body,
-                    userHandle: doc.data().userHandle,
-                    createdAt: doc.data().createdAt,
-                    commentCount: doc.data().commentCount,
-                    likeCount: doc.data().likeCount,
-                    userImage: doc.data().userImage,
-                    postImage: doc.data().postImageUrl,
-                    titleImdbId: doc.data().titleImdbId,
-                    titleId: doc.data().titleId,
-                    title: doc.data().title,
-                    season: doc.data().season,
-                    episode: doc.data().episode,
-                    opinion: doc.data().opinion,
-                    funFact: doc.data().funFact,
-                    plotHoles: doc.data().plotHoles
+                    ...doc.data()
                 });
             });
             return res.json(posts);
@@ -194,21 +137,7 @@ exports.getPostsByOpinionOrderedByLikes = (req, res) => {
                 console.log(`doc data ${doc.data()}`);
                 posts.push({ // the object spread opereator ... is not avaiable in node 6, so we have to do it item by item like below
                     postId: doc.id,
-                    body: doc.data().body,
-                    userHandle: doc.data().userHandle,
-                    createdAt: doc.data().createdAt,
-                    commentCount: doc.data().commentCount,
-                    likeCount: doc.data().likeCount,
-                    userImage: doc.data().userImage,
-                    postImage: doc.data().postImageUrl,
-                    titleImdbId: doc.data().titleImdbId,
-                    titleId: doc.data().titleId,
-                    title: doc.data().title,
-                    season: doc.data().season,
-                    episode: doc.data().episode,
-                    opinion: doc.data().opinion,
-                    funFact: doc.data().funFact,
-                    plotHoles: doc.data().plotHoles
+                    ...doc.data()
                 });
             });
             return res.json(posts);
@@ -229,21 +158,7 @@ exports.getPostsByFunFact = (req, res) => {
                 console.log(`doc data ${doc.data()}`);
                 posts.push({ // the object spread opereator ... is not avaiable in node 6, so we have to do it item by item like below
                     postId: doc.id,
-                    body: doc.data().body,
-                    userHandle: doc.data().userHandle,
-                    createdAt: doc.data().createdAt,
-                    commentCount: doc.data().commentCount,
-                    likeCount: doc.data().likeCount,
-                    userImage: doc.data().userImage,
-                    postImage: doc.data().postImageUrl,
-                    titleImdbId: doc.data().titleImdbId,
-                    titleId: doc.data().titleId,
-                    title: doc.data().title,
-                    season: doc.data().season,
-                    episode: doc.data().episode,
-                    opinion: doc.data().opinion,
-                    funFact: doc.data().funFact,
-                    plotHoles: doc.data().plotHoles
+                    ...doc.data()
                 });
             });
             return res.json(posts);
@@ -264,21 +179,7 @@ exports.getPostsByFunFactOrderedByLikes = (req, res) => {
             data.forEach((doc) => {
                 posts.push({ // the object spread opereator ... is not avaiable in node 6, so we have to do it item by item like below
                     postId: doc.id,
-                    body: doc.data().body,
-                    userHandle: doc.data().userHandle,
-                    createdAt: doc.data().createdAt,
-                    commentCount: doc.data().commentCount,
-                    likeCount: doc.data().likeCount,
-                    userImage: doc.data().userImage,
-                    postImage: doc.data().postImageUrl,
-                    titleImdbId: doc.data().titleImdbId,
-                    titleId: doc.data().titleId,
-                    title: doc.data().title,
-                    season: doc.data().season,
-                    episode: doc.data().episode,
-                    opinion: doc.data().opinion,
-                    funFact: doc.data().funFact,
-                    plotHoles: doc.data().plotHoles
+                    ...doc.data()
                 });
             });
             return res.json(posts);
@@ -291,7 +192,7 @@ exports.getPostsByFunFactOrderedByLikes = (req, res) => {
 
 exports.getPostsByPlotHoles = (req, res) => {
     db.collection('posts')
-        .where('plotHoles', '==', true) 
+        .where('plotHoles', '==', true)
         .orderBy('createdAt', 'desc')
         .get()
         .then((data) => {
@@ -300,21 +201,7 @@ exports.getPostsByPlotHoles = (req, res) => {
                 console.log(`doc data ${doc.data()}`);
                 posts.push({ // the object spread opereator ... is not avaiable in node 6, so we have to do it item by item like below
                     postId: doc.id,
-                    body: doc.data().body,
-                    userHandle: doc.data().userHandle,
-                    createdAt: doc.data().createdAt,
-                    commentCount: doc.data().commentCount,
-                    likeCount: doc.data().likeCount,
-                    userImage: doc.data().userImage,
-                    postImage: doc.data().postImageUrl,
-                    titleImdbId: doc.data().titleImdbId,
-                    titleId: doc.data().titleId,
-                    title: doc.data().title,
-                    season: doc.data().season,
-                    episode: doc.data().episode,
-                    opinion: doc.data().opinion,
-                    funFact: doc.data().funFact,
-                    plotHoles: doc.data().plotHoles
+                    ...doc.data()
                 });
             });
             return res.json(posts);
@@ -327,7 +214,7 @@ exports.getPostsByPlotHoles = (req, res) => {
 
 exports.getPostsByPlotHolesOrderedByLikes = (req, res) => {
     db.collection('posts')
-        .where('plotHoles', '==', true) 
+        .where('plotHoles', '==', true)
         .orderBy('likeCount', 'desc')
         .get()
         .then((data) => {
@@ -336,21 +223,7 @@ exports.getPostsByPlotHolesOrderedByLikes = (req, res) => {
                 console.log(`doc data ${doc.data()}`);
                 posts.push({ // the object spread opereator ... is not avaiable in node 6, so we have to do it item by item like below
                     postId: doc.id,
-                    body: doc.data().body,
-                    userHandle: doc.data().userHandle,
-                    createdAt: doc.data().createdAt,
-                    commentCount: doc.data().commentCount,
-                    likeCount: doc.data().likeCount,
-                    userImage: doc.data().userImage,
-                    postImage: doc.data().postImageUrl,
-                    titleImdbId: doc.data().titleImdbId,
-                    titleId: doc.data().titleId,
-                    title: doc.data().title,
-                    season: doc.data().season,
-                    episode: doc.data().episode,
-                    opinion: doc.data().opinion,
-                    funFact: doc.data().funFact,
-                    plotHoles: doc.data().plotHoles
+                    ...doc.data()
                 });
             });
             return res.json(posts);
@@ -373,22 +246,7 @@ exports.getPostsByIdByOpinion = (req, res) => {
                 console.log(`doc data ${doc.data()}`);
                 posts.push({ // the object spread opereator ... is not avaiable in node 6, so we have to do it item by item like below
                     postId: doc.id,
-                    body: doc.data().body,
-                    userHandle: doc.data().userHandle,
-                    createdAt: doc.data().createdAt,
-                    commentCount: doc.data().commentCount,
-                    likeCount: doc.data().likeCount,
-                    userImage: doc.data().userImage,
-                    postImage: doc.data().postImageUrl,
-                    titleImdbId: doc.data().titleImdbId,
-                    titleId: doc.data().titleId,
-                    title: doc.data().title,
-                    season: doc.data().season,
-                    episode: doc.data().episode,
-                    opinion: doc.data().opinion,
-                    funFact: doc.data().funFact,
-                    plotHoles: doc.data().plotHoles
-                    //checkInLocation: doc.data().checkInLocation
+                    ...doc.data()
                 });
             });
             return res.json(posts);
@@ -411,22 +269,7 @@ exports.getPostsByIdByFunFact = (req, res) => {
                 console.log(`doc data ${doc.data()}`);
                 posts.push({ // the object spread opereator ... is not avaiable in node 6, so we have to do it item by item like below
                     postId: doc.id,
-                    body: doc.data().body,
-                    userHandle: doc.data().userHandle,
-                    createdAt: doc.data().createdAt,
-                    commentCount: doc.data().commentCount,
-                    likeCount: doc.data().likeCount,
-                    userImage: doc.data().userImage,
-                    postImage: doc.data().postImageUrl,
-                    titleImdbId: doc.data().titleImdbId,
-                    titleId: doc.data().titleId,
-                    title: doc.data().title,
-                    season: doc.data().season,
-                    episode: doc.data().episode,
-                    opinion: doc.data().opinion,
-                    funFact: doc.data().funFact,
-                    plotHoles: doc.data().plotHoles
-                    //checkInLocation: doc.data().checkInLocation
+                    ...doc.data()
                 });
             });
             return res.json(posts);
@@ -449,22 +292,7 @@ exports.getPostsByIdByPlotHoles = (req, res) => {
                 console.log(`doc data ${doc.data()}`);
                 posts.push({ // the object spread opereator ... is not avaiable in node 6, so we have to do it item by item like below
                     postId: doc.id,
-                    body: doc.data().body,
-                    userHandle: doc.data().userHandle,
-                    createdAt: doc.data().createdAt,
-                    commentCount: doc.data().commentCount,
-                    likeCount: doc.data().likeCount,
-                    userImage: doc.data().userImage,
-                    postImage: doc.data().postImageUrl,
-                    titleImdbId: doc.data().titleImdbId,
-                    titleId: doc.data().titleId,
-                    title: doc.data().title,
-                    season: doc.data().season,
-                    episode: doc.data().episode,
-                    opinion: doc.data().opinion,
-                    funFact: doc.data().funFact,
-                    plotHoles: doc.data().plotHoles
-                    //checkInLocation: doc.data().checkInLocation
+                    ...doc.data()
                 });
             });
             return res.json(posts);
@@ -487,22 +315,7 @@ exports.getPostsByIdByOpinionOrderedByLikes = (req, res) => {
                 console.log(`doc data ${doc.data()}`);
                 posts.push({ // the object spread opereator ... is not avaiable in node 6, so we have to do it item by item like below
                     postId: doc.id,
-                    body: doc.data().body,
-                    userHandle: doc.data().userHandle,
-                    createdAt: doc.data().createdAt,
-                    commentCount: doc.data().commentCount,
-                    likeCount: doc.data().likeCount,
-                    userImage: doc.data().userImage,
-                    postImage: doc.data().postImageUrl,
-                    titleImdbId: doc.data().titleImdbId,
-                    titleId: doc.data().titleId,
-                    title: doc.data().title,
-                    season: doc.data().season,
-                    episode: doc.data().episode,
-                    opinion: doc.data().opinion,
-                    funFact: doc.data().funFact,
-                    plotHoles: doc.data().plotHoles
-                    //checkInLocation: doc.data().checkInLocation
+                    ...doc.data()
                 });
             });
             return res.json(posts);
@@ -525,22 +338,7 @@ exports.getPostsByIdByFunFactOrderedByLikes = (req, res) => {
                 console.log(`doc data ${doc.data()}`);
                 posts.push({ // the object spread opereator ... is not avaiable in node 6, so we have to do it item by item like below
                     postId: doc.id,
-                    body: doc.data().body,
-                    userHandle: doc.data().userHandle,
-                    createdAt: doc.data().createdAt,
-                    commentCount: doc.data().commentCount,
-                    likeCount: doc.data().likeCount,
-                    userImage: doc.data().userImage,
-                    postImage: doc.data().postImageUrl,
-                    titleImdbId: doc.data().titleImdbId,
-                    titleId: doc.data().titleId,
-                    title: doc.data().title,
-                    season: doc.data().season,
-                    episode: doc.data().episode,
-                    opinion: doc.data().opinion,
-                    funFact: doc.data().funFact,
-                    plotHoles: doc.data().plotHoles
-                    //checkInLocation: doc.data().checkInLocation
+                    ...doc.data()
                 });
             });
             return res.json(posts);
@@ -563,22 +361,7 @@ exports.getPostsByIdByPlotHolesOrderedByLikes = (req, res) => {
                 console.log(`doc data ${doc.data()}`);
                 posts.push({ // the object spread opereator ... is not avaiable in node 6, so we have to do it item by item like below
                     postId: doc.id,
-                    body: doc.data().body,
-                    userHandle: doc.data().userHandle,
-                    createdAt: doc.data().createdAt,
-                    commentCount: doc.data().commentCount,
-                    likeCount: doc.data().likeCount,
-                    userImage: doc.data().userImage,
-                    postImage: doc.data().postImageUrl,
-                    titleImdbId: doc.data().titleImdbId,
-                    titleId: doc.data().titleId,
-                    title: doc.data().title,
-                    season: doc.data().season,
-                    episode: doc.data().episode,
-                    opinion: doc.data().opinion,
-                    funFact: doc.data().funFact,
-                    plotHoles: doc.data().plotHoles
-                    //checkInLocation: doc.data().checkInLocation
+                    ...doc.data()
                 });
             });
             return res.json(posts);
@@ -615,7 +398,8 @@ exports.uploadAPost = (req, res) => {
         episode: req.body.episode ? req.body.episode : '',
         opinion: req.body.opinion,
         funFact: req.body.funFact,
-        plotHoles: req.body.plotHoles
+        plotHoles: req.body.plotHoles,
+        comments: []
     };
     db.collection('posts')
         .add(newPost)
@@ -697,6 +481,39 @@ exports.getComment = (req, res) => {
         })
 }
 
+exports.deleteComment = (req, res) => {
+    console.log("req user: ", req)
+    const document = db.doc(`/comments/${req.params.commentId}`);
+    document.get()
+        .then((doc) => {
+            if (!doc.exists) {
+                return res.status(404).json({ error: 'Comment not found' });
+            }
+            if (doc.data().userHandle !== req.user.handle) {
+                return res.status(403).json({ error: 'Unauthorized' });
+            } else {
+                db.doc(`/posts/${doc.data().postId}`).get()
+                    .then((doc) => {
+                        if (!doc.exists) {
+                            return res.status(404).json({ error: 'Post not found' });
+                        }
+                        return doc.ref.update({ 
+                                    commentCount: doc.data().commentCount - 1,
+                                    comments: doc.data().comments.filter((comment) => comment.commentId !== req.params.commentId)
+                                });
+                    })
+                return document.delete();
+            }
+        })
+        .then(() => {
+            res.json({ message: 'Comment has been deleted successfully' })
+        })
+        .catch((err) => {
+            console.error(err);
+            return res.status(500).json({ error: err.code });
+        })
+}
+
 exports.getRepliedComment = (req, res) => {
     let repliedCommentData = {};
     db.doc(`/repliedComments/${req.params.repliedCommentId}`)
@@ -732,13 +549,19 @@ exports.commentOnPost = (req, res) => {
         setScrollToComment: false,
         repliedComments: []
     };
-
+    /*
     db.doc(`/posts/${req.params.postId}`).get()
         .then((doc) => {
             if (!doc.exists) {
                 return res.status(404).json({ error: 'Post not found' });
             }
-            return doc.ref.update({ commentCount: doc.data().commentCount + 1 }); //increment comment count
+            return doc.ref.update({
+                commentCount: doc.data().commentCount + 1,
+                comments: [
+                    newComment,
+                    ...doc.data().comments
+                ]
+            }); //increment comment count
         })
         .then(() => {
             return db.collection('comments')
@@ -747,6 +570,7 @@ exports.commentOnPost = (req, res) => {
                     const resComment = newComment;
                     resComment.commentId = doc.id; //can edit a key in the constant, can't change the data type or the complete value of the object
                     res.json(resComment);
+
                 })
                 .catch(err => {
                     res.status(500).json({ error: 'something went wrong' });
@@ -756,6 +580,37 @@ exports.commentOnPost = (req, res) => {
         .catch((err) => {
             console.log(err);
             res.status(500).json({ error: 'Something went wrong' });
+        });
+        */
+
+
+    db.collection('comments')
+        .add(newComment)
+        .then((doc) => {
+            const resComment = newComment;
+            resComment.commentId = doc.id; //can edit a key in the constant, can't change the data type or the complete value of the object
+            res.json(resComment);
+            return db.doc(`/posts/${req.params.postId}`).get()
+                .then((doc) => {
+                    if (!doc.exists) {
+                        return res.status(404).json({ error: 'Post not found' });
+                    }
+                    return doc.ref.update({
+                        commentCount: doc.data().commentCount + 1,
+                        comments: [
+                            resComment, // include the commentId
+                            ...doc.data().comments
+                        ]
+                    }); //increment comment count
+                })
+                .catch(err => {
+                    res.status(500).json({ error: 'something went wrong' });
+                    console.error(err);
+                });
+        })
+        .catch(err => {
+            res.status(500).json({ error: 'something went wrong' });
+            console.error(err);
         });
 }
 
@@ -772,7 +627,8 @@ exports.replyCommentOnPost = (req, res) => {
         userImage: req.user.imageUrl,
         mentions: req.body.mentions ? req.body.mentions : ''
     };
-
+    
+    /*
     db.doc(`/comments/${req.params.commentId}`).get()
         .then((doc) => {
             if (!doc.exists) {
@@ -798,6 +654,45 @@ exports.replyCommentOnPost = (req, res) => {
         .catch((err) => {
             console.log(err);
             res.status(500).json({ error: 'Something went wrong' });
+        });
+
+        */
+    db.collection('repliedComments')
+        .add(repliedComment)
+        .then((doc) => {
+            const resRepliedComment = repliedComment;
+            resRepliedComment.repliedCommentId = doc.id;
+            res.json(resRepliedComment);
+
+            return db.doc(`/posts/${req.params.postId}`).get()
+                .then((doc) => {
+                    if (!doc.exists) {
+                        return res.status(404).json({ error: 'Post not found' });
+                    }
+                    
+                    /* only update the one comment that user is replying to in the post */
+                    const commentsUpdate = [...doc.data().comments]
+                    const commentIndex = commentsUpdate.findIndex(comment => comment.commentId === req.params.commentId);
+
+                    commentsUpdate[commentIndex] = {
+                        ...commentsUpdate[commentIndex],
+                        repliedComments: [ 
+                            resRepliedComment, // add the new replied comment the parents comment
+                            ...commentsUpdate[commentIndex].repliedComments,
+                        ],
+                        repliedCommentsCount: commentsUpdate[commentIndex].repliedCommentsCount + 1, // increment replied comments count
+                    }
+                    
+                    return doc.ref.update({
+                        comments: commentsUpdate
+                    }); 
+                    
+                })
+
+        })
+        .catch(err => {
+            res.status(500).json({ error: 'something went wrong' });
+            console.error(err);
         });
 }
 

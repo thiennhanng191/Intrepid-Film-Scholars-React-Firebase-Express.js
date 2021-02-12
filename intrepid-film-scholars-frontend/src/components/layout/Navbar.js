@@ -156,7 +156,6 @@ class Navbar extends Component {
                     getContentAnchorEl={null}
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
                     id={this.mobileMenuId}
-                    keepMounted
                     //transformOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                     open={isMobileMenuOpen}
                     onClose={this.handleMobileMenuClose}
@@ -192,8 +191,6 @@ class Navbar extends Component {
                         getContentAnchorEl={null}
                         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
                         id={this.mobileMenuId}
-                        keepMounted
-                        //transformOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                         open={isMobileMenuOpen}
                         onClose={this.handleMobileMenuClose}
                         style={{ disableScrollLock: true }}
@@ -231,8 +228,6 @@ class Navbar extends Component {
                     getContentAnchorEl={null} //set this to null to set custom anchor origin position
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                     id={profileMenuId}
-                    keepMounted
-                    //transformOrigin={{ vertical: 'top', horizontal: 'right' }}
                     open={isProfileMenuOpen}
                     onClose={this.handleProfileClose}
                 >
@@ -242,7 +237,7 @@ class Navbar extends Component {
 
                     <MenuItem onClick={this.handleProfileClose} component={Link} to={`/user/${handle}`}>
                         <ProfileIcon className={classes.dropDownIcon} /> Profile
-                </MenuItem>
+                    </MenuItem>
 
                     <MenuItem onClick={this.handleLogout} component={Link} to={`/`}>
                         <LogoutIcon className={classes.dropDownIcon} />Logout
@@ -260,8 +255,6 @@ class Navbar extends Component {
                         getContentAnchorEl={null} //set this to null to set custom anchor origin position
                         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                         id={profileMenuId}
-                        keepMounted
-                        //transformOrigin={{ vertical: 'top', horizontal: 'right' }}
                         open={isProfileMenuOpen}
                         onClose={this.handleProfileClose}
                     >
@@ -269,11 +262,11 @@ class Navbar extends Component {
                             <InfoIcon className={classes.dropDownIcon} /> About
                     </MenuItem>
 
-                        <MenuItem onClick={this.handleMobileMenuClose} component={Link} to={`/login`}>
+                        <MenuItem onClick={this.handleProfileClose} component={Link} to={`/login`}>
                             <LoginIcon className={classes.dropDownIcon} /> Log in
                         </MenuItem>
 
-                        <MenuItem onClick={this.handleMobileMenuClose} component={Link} to={`/signup`}>
+                        <MenuItem onClick={this.handleProfileClose} component={Link} to={`/signup`}>
                             <SignupIcon className={classes.dropDownIcon} />Sign up
                         </MenuItem>
                         <MenuItem style={{ display: 'flex', justifyContent: 'space-between' }}>

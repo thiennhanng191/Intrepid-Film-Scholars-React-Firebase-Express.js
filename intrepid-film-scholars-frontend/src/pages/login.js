@@ -11,11 +11,9 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-
 //import Redux related
 import { connect } from 'react-redux';
 import { loginUser } from '../redux/actions/userActions';
-
 
 const styles = (theme) => ({
     ...theme.spreadThis
@@ -30,13 +28,6 @@ class login extends Component {
             errors: {}
         };
     }
-    /*
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.UI.errors) {
-            this.setState({ errors: nextProps.UI.errors });
-        }
-    }   
-    */
 
     static getDerivedStateFromProps(nextProps) {
         if (nextProps.UI.errors) {
@@ -63,6 +54,7 @@ class login extends Component {
             [event.target.name]: event.target.value
         });
     }
+
     render() {
         const { errors } = this.state;
         const { classes, UI: { loading } } = this.props; // loading is in props of UI now 
@@ -118,6 +110,7 @@ class login extends Component {
                                 <CircularProgress size={30} className={classes.progress} />
                             )}
                         </Button>
+
                         <div id="container" className={classes.footer}>
                             <Typography variant='body2' style={{ textAlign: 'center' }}>
                                 Don't have an account yet? Join our community <Link to='/signup'>here</Link>

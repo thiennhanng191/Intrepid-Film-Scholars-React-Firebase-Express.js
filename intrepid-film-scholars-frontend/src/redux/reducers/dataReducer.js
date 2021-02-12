@@ -229,10 +229,12 @@ export default function (state = initialState, action) {
         case SET_HIGHLY_RATED_MOVIES: {
             return {
                 ...state,
+                /*
                 highlyRatedMovies: [
                     ...state.highlyRatedMovies,
                     action.payload
-                ],
+                ],*/
+                highlyRatedMovies: action.payload,
                 loading: true
             }
         }
@@ -248,10 +250,7 @@ export default function (state = initialState, action) {
         case SET_POPULAR_MOVIES: {
             return {
                 ...state,
-                popularMovies: [
-                    ...state.popularMovies,
-                    action.payload
-                ]
+                popularMovies: action.payload
             }
         }
         case SET_POPULAR_TV: {
@@ -266,10 +265,7 @@ export default function (state = initialState, action) {
         case SET_TRENDING_MOVIES: {
             return {
                 ...state,
-                trendingMovies: [
-                    ...state.trendingMovies,
-                    action.payload
-                ]
+                trendingMovies: action.payload
             }
         }
         case SET_TRENDING_TV: {

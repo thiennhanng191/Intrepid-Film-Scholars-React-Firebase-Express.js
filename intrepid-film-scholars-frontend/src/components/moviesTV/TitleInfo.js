@@ -30,7 +30,6 @@ const styles = (theme) => ({
     card: {
     },
     content: {
-        //maxHeight: 350, 
         height: 330,
         overflowY: 'scroll',
     },

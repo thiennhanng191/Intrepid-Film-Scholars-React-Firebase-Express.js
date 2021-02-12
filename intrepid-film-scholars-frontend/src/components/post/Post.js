@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
@@ -40,7 +40,8 @@ const styles = (theme) => ({
         position: 'relative',
         display: 'block',
         marginBottom: 20,
-        boxShadow: 'none'
+        boxShadow: 'none',
+        overflow: 'visible !important'
     },
     image: {
         minWidth: 200
@@ -53,6 +54,10 @@ const styles = (theme) => ({
     collapseContent: {
         paddingTop: 0,
         paddingBottom: '0px !important'
+    },
+    collapseContentNoComments: {
+        paddingTop: 0,
+        paddingBottom: '16px !important'
     },
     moreButton: {
         position: 'absolute',
@@ -110,7 +115,7 @@ const styles = (theme) => ({
             fontSize: '0.8rem'
         },
         //color: 'lightgray',
-        fontSize: '1.05rem'
+        fontSize: '0.875rem'
     },
     postBody: {
         [theme.breakpoints.down('sm')]: {
@@ -123,94 +128,80 @@ const styles = (theme) => ({
         paddingLeft: 0
     }
 })
-class Post extends Component {
-    state = {
-        expanded: false,
-        commentCountUpdate: false,
-        commentCount: '',
-        moreMenuAnchorEl: null,
-        isMoreMenuOpen: false,
-        openShareDialog: false
-    };
 
-    componentDidMount = () => {
-        this.setState({
-            commentCount: this.props.post.commentCount
-        })
-    }
+function Post(props) {
+    dayjs.extend(relativeTime);
 
-    handleExpandClick = (event) => {
-        //this.props.getAllUsers();
-        event.stopPropagation();
-        event.preventDefault();
-        this.props.getPost(this.props.post.postId);
-        this.setState({
-            expanded: !this.state.expanded
-        });
-    }
+    const [expanded, setExpanded] = useState(false);
+    const [commentCount, setCommentCount] = useState('');
+    const [comments, setComments] = useState([]);
+    const [moreMenuAnchorEl, setMoreMenuAnchorEl] = useState(null);
+    const [openShareDialog, setOpenShareDialog] = useState(false);
 
-    handleMoreMenuOpen = (event) => {
-        this.setState({
-            moreMenuAnchorEl: event.currentTarget
-        });
-    }
+    
+    useEffect(() => {
+        setCommentCount(props.post.commentCount);
+        setComments(props.post.comments);
+    }, [])
 
-    handleMoreMenuClose = (event) => {
-        this.setState({
-            moreMenuAnchorEl: null
-        });
-    }
-
-    handleOpenShareDialog = () => {
-        this.setState({
-            openShareDialog: true,
-            moreMenuAnchorEl: null
-        });
-    }
-
-    handleCloseShareDialog = () => {
-        this.setState({
-            openShareDialog: false
-        });
-    }
-    componentDidUpdate = (prevProps) => {
-        //check if a post's commentCount has been changed after submitting a comment
-        if (this.props.data.post.postId === this.props.post.postId // only update the 1 post just got commented
-            && prevProps.data.post.commentCount !== this.props.data.post.commentCount && this.props.data.post.commentCount && this.props.data.post.commentCount !== this.props.post.commentCount) {
-            this.setState({
-                commentCount: this.state.commentCount + 1
-            })
+    useEffect(() => {
+        if (Number.isInteger(props.data.post.commentCount) && props.data.post.commentCount !== commentCount 
+        && props.data.post.postId === props.post.postId) { // only update the 1 post being commented
+            /* update a new comment after user commented */
+            /* or remove the comment that the user has deleted */
+            setCommentCount(props.data.post.commentCount);
+            setComments(props.data.post.comments)
         }
+    }, [props.data.post.commentCount])
+
+    const handleExpandClick = (event) => {
+        event.stopPropagation(); 
+        event.preventDefault(); 
+        if (expanded === false) {
+            props.getPost(props.post.postId);
+        } 
+        setExpanded(!expanded);
+    }
+    const handleMoreMenuOpen = (event) => {
+        setMoreMenuAnchorEl(event.currentTarget);
     }
 
-    render() {
-        dayjs.extend(relativeTime);
-        const {
-            classes,
-            post: {
-                body,
-                createdAt,
-                userImage,
-                userHandle,
-                postId,
-                likeCount,
-                title,
-                season,
-                episode,
-                titleId,
-                titleImdbId
-            },
-            titleIdInUrl,
-            user: {
-                authenticated,
-                credentials: { handle } // getAuthenticatedUser will return user with credentials (which contains the handle) as well as the likes and notifications
-            },
-        } = this.props;
+    const handleMoreMenuClose = (event) => {
+        setMoreMenuAnchorEl(null);
+    }
 
-        const { post: {
-            comments } } = this.props.data;
+    const handleOpenShareDialog = () => {
+        setOpenShareDialog(true);
+        setMoreMenuAnchorEl(null);
+    }
+    
+    const handleCloseShareDialog = () => {
+        setOpenShareDialog(false);
+    }
 
-        let linkToTitleContainingPost;
+    const {
+        classes,
+        post: {
+            body,
+            createdAt,
+            userImage,
+            userHandle,
+            postId,
+            likeCount,
+            title,
+            season,
+            episode,
+            titleId,
+            titleImdbId
+        },
+        titleIdInUrl,
+        user: {
+            authenticated,
+            credentials: { handle } // getAuthenticatedUser will return user with credentials (which contains the handle) as well as the likes and notifications
+        },
+    } = props; 
+
+    let linkToTitleContainingPost;
         if (titleImdbId && titleId.length > titleImdbId.length) //link to a season of a tv show (titleId of a post belonging to season is the series imdbid appended with the season)
             linkToTitleContainingPost = `/moviesTV/title=${titleImdbId}/season=${titleId.slice(titleImdbId.length)}`
         else if (titleImdbId && titleId !== titleImdbId && titleId.length === titleImdbId.length) //link to an episode (episode's imdb id is different from the show's imdb id but both id have the same length)
@@ -234,22 +225,22 @@ class Post extends Component {
             )
 
 
-        const isMoreMenuOpen = Boolean(this.state.moreMenuAnchorEl)
+        const isMoreMenuOpen = Boolean(moreMenuAnchorEl)
 
         const moreMenu = (
             <Menu
-                anchorEl={this.state.moreMenuAnchorEl}
+                anchorEl={moreMenuAnchorEl}
                 getContentAnchorEl={null}
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
                 open={isMoreMenuOpen}
-                onClose={this.handleMoreMenuClose}
+                onClose={handleMoreMenuClose}
             >
                 {authenticated && userHandle === handle &&
                     < MenuItem >
                         {deleteButton}
                     </MenuItem>
                 }
-                <MenuItem className={classes.moreMenuItem} onClick={this.handleOpenShareDialog}>
+                <MenuItem className={classes.moreMenuItem} onClick={handleOpenShareDialog}>
                     <Icon style={{ marginRight: 5 }}>
                         <ShareOutlinedIcon color='secondary' />
                     </Icon>
@@ -261,80 +252,80 @@ class Post extends Component {
         )
 
 
-        return (
-            <Card className={classes.card}>
-                <CardActionArea onClick={() => window.location = linkToPost} />
-                <CardContent className={classes.content}>
-                    <div className={classes.root}>
-                        <Avatar alt={userHandle} src={userImage} />
-                        <div id="container" style={{ width: '100%' }}>
-                            <Typography variant="h6" component={Link} to={`/user/${userHandle}`} color="primary" className={classes.userHandle}>{userHandle}</Typography>
+    return (
+        <Card className={classes.card}>
+            <CardActionArea onClick={() => window.location = linkToPost} />
+            <CardContent className={classes.content}>
+                <div className={classes.root}>
+                    <Avatar alt={userHandle} src={userImage} />
+                    <div id="container" style={{ width: '100%' }}>
+                        <Typography variant="h6" component={Link} to={`/user/${userHandle}`} color="primary" className={classes.userHandle}>{userHandle}</Typography>
 
-                            {title && !titleIdInUrl &&
-                                <Link to={linkToTitleContainingPost} style={{ display: 'inline-flex'}}>
-                                    {/*  */}
-                                    <Typography className={classes.title}>
-                                        <Truncate
-                                            lines={1}
-                                            ellipsis={('...')}
-                                        >
-                                            in {title}{season && `, season ${season}`}{episode && `, episode ${episode}`}
-                                        </Truncate>
-                                    </Typography>
+                        {title && !titleIdInUrl &&
+                            <Link to={linkToTitleContainingPost} style={{ display: 'inline-flex' }}>
+                                {/*  */}
+                                <Typography className={classes.title}>
+                                    <Truncate
+                                        lines={1}
+                                        ellipsis={('...')}
+                                    >
+                                        in {title}{season && `, season ${season}`}{episode && `, episode ${episode}`}
+                                    </Truncate>
+                                </Typography>
 
-                                </Link>
-                            }
-
-                            {/*
-                            {deleteButton}
-*/}
-                            <CommonButton tooltip='More' onClick={this.handleMoreMenuOpen} btnClassName={classes.moreButton}>
-                                <MoreVertIcon />
-                            </CommonButton>
-                            <Typography id='post-date' className={classes.date}>{dayjs(createdAt).fromNow()}</Typography>
-                        </div>
-                        {moreMenu}
-                        <ShareDialog openDialog={this.state.openShareDialog} handleDialogClose={this.handleCloseShareDialog} url={`intrepidfilmscholars.ml${linkToPost}`} />
-                    </div>
-                    <Typography className={classes.postBody}>{body}</Typography>
-
-                    <div style={{ marginTop: '-5px', display: 'flex', alignItems: 'center' }}>
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <LikeButton postId={postId} btnClassName={classes.likeButton} />
-                            <span><Typography variant='body1' className={classes.buttonText}> {likeCount} Likes </Typography> </span>
-                        </div>
-
-                        <CommonButton tooltip='comments' onClick={this.handleExpandClick} onMouseDown={event => event.stopPropagation()}>
-                            <ChatIcon color='primary' />
-                            <span> <Typography variant='body1' style={{ marginLeft: 10 }} className={classes.buttonText}>{this.state.commentCount} {this.state.commentCount > 1 ? 'Commments' : 'Comment'}</Typography></span>
-                        </CommonButton>
-
-                        <CommonButton tooltip='go to post' btnClassName={classes.goToPostButton} component={Link} to={`${linkToPost}`}>
-                            <ArrowIcon color='primary' />
-                        </CommonButton>
-                    </div>
-
-                </CardContent>
-
-{comments && comments.length > 0 &&
-                <Collapse in={this.state.expanded} timeout='auto' unmountOnExit>
-                    <CardContent className={classes.collapseContent}>
-                        <CommentForm postId={postId} />
-                        {comments && comments.length === 0 && <div style={{ height: 24 }}></div>}
-                        {comments &&
-                            comments.length > 0 &&
-                            <Fragment>
-                                <hr className={classes.horizontalDivider} />
-                                <Comments comments={comments} />
-                            </Fragment>
+                            </Link>
                         }
-                    </CardContent>
-                </Collapse>
-    }
-            </Card>
-        )
-    }
+
+                        {/*
+                        {deleteButton}
+*/}
+                        <CommonButton tooltip='More' onClick={handleMoreMenuOpen} btnClassName={classes.moreButton}>
+                            <MoreVertIcon />
+                        </CommonButton>
+                        <Typography id='post-date' className={classes.date}>{dayjs(createdAt).fromNow()}</Typography>
+                    </div>
+                    {moreMenu}
+                    <ShareDialog openDialog={openShareDialog} handleDialogClose={handleCloseShareDialog} url={`intrepidfilmscholars.ml${linkToPost}`} />
+                </div>
+                <Typography className={classes.postBody}>{body}</Typography>
+
+                <div style={{ marginTop: '-5px', display: 'flex', alignItems: 'center' }}>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <LikeButton postId={postId} btnClassName={classes.likeButton} />
+                        <span><Typography variant='body1' className={classes.buttonText}> {likeCount} Likes </Typography> </span>
+                    </div>
+
+                    <CommonButton tooltip='comments' onClick={handleExpandClick} onMouseDown={event => event.stopPropagation()}>
+                        <ChatIcon color='primary' />
+                        <span> <Typography variant='body1' style={{ marginLeft: 10 }} className={classes.buttonText}>{commentCount} {commentCount > 1 ? 'Commments' : 'Comment'}</Typography></span>
+                    </CommonButton>
+
+                    <CommonButton tooltip='go to post' btnClassName={classes.goToPostButton} component={Link} to={`${linkToPost}`}>
+                        <ArrowIcon color='primary' />
+                    </CommonButton>
+                </div>
+
+            </CardContent>
+
+
+            <Collapse in={expanded} timeout='auto' unmountOnExit>
+                <CardContent className={comments &&
+                        comments.length > 0 ? classes.collapseContent : classes.collapseContentNoComments}>
+                    <CommentForm postId={postId} />
+                    {comments &&
+                        comments.length > 0 &&
+                        <Fragment>
+                            <hr className={classes.horizontalDivider} />
+                            <Comments comments={comments} />
+                        </Fragment>
+                    }
+                </CardContent>
+            </Collapse>
+
+        </Card>
+    )
 }
+
 
 Post.propTypes = {
     //likePost: PropTypes.func.isRequired,

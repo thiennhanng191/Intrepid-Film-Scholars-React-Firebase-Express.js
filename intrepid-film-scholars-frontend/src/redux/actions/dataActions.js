@@ -1,4 +1,4 @@
-import { SET_POSTS, SET_TOP_POSTS, SET_OPINION_POSTS, SET_TOP_OPINION_POSTS, SET_FUN_FACT_POSTS, SET_TOP_FUN_FACT_POSTS,SET_PLOT_HOLES_POSTS, SET_TOP_PLOT_HOLES_POSTS, SET_POST, SET_COMMENT, SUBMIT_REPLIED_COMMENT, LOADING_DATA, LOADING_UI, STOP_LOADING_UI, LIKE_POST, UNLIKE_POST, DELETE_POST, UPLOAD_POST, SET_ERRORS, CLEAR_ERRORS, SUBMIT_COMMENT } from '../types';
+import { SET_POSTS, SET_TOP_POSTS, SET_OPINION_POSTS, SET_TOP_OPINION_POSTS, SET_FUN_FACT_POSTS, SET_TOP_FUN_FACT_POSTS, SET_PLOT_HOLES_POSTS, SET_TOP_PLOT_HOLES_POSTS, SET_POST, SET_COMMENT, SUBMIT_REPLIED_COMMENT, LOADING_DATA, LOADING_UI, LIKE_POST, UNLIKE_POST, DELETE_POST, UPLOAD_POST, SET_ERRORS, CLEAR_ERRORS, SUBMIT_COMMENT } from '../types';
 import { SET_OPINION_POSTS_BY_TITLEID, SET_TOP_OPINION_POSTS_BY_TITLEID, SET_FUN_FACT_POSTS_BY_TITLEID, SET_TOP_FUN_FACT_POSTS_BY_TITLEID, SET_PLOT_HOLES_POSTS_BY_TITLEID, SET_TOP_PLOT_HOLES_POSTS_BY_TITLEID } from '../types';
 import { SET_USER_FOR_USER_PAGE, LOADING_USER, SET_TITLES, CLEAR_SEARCH_TITLES, SET_TITLE, SET_POSTS_BY_TITLEID, SET_TOP_POSTS_BY_TITLEID, SET_TV_SEASON, SET_CHOOSE_SEASON, SET_EPISODE_OVERVIEW, SET_EPISODE_DETAILS, CLEAR_EPISODES, CHOOSE_SEASON, CLEAR_POSTS, SET_TITLE_TMDB, SET_SIMILAR_TITLES, SET_HIGHLY_RATED_MOVIES, SET_HIGHLY_RATED_TV, SET_POPULAR_MOVIES, SET_POPULAR_TV, SET_TRENDING_MOVIES, SET_TRENDING_TV } from '../types';
 import { SET_MOVIE_GENRES, SET_TV_GENRES, SET_RECOMMENDED_MOVIES, CLEAR_RECOMMENDED_MOVIES, SET_RECOMMENDED_TVS, CLEAR_RECOMMENDED_TVS } from '../types';
@@ -30,116 +30,116 @@ export const getTopPosts = () => (dispatch) => {
         .then((res) => {
             dispatch({
                 type: SET_TOP_POSTS,
-                payload: res.data 
+                payload: res.data
             })
         })
         .catch((err) => {
             dispatch({
                 type: SET_TOP_POSTS,
-                payload: [] 
+                payload: []
             })
         })
 };
 
 export const getOpinionPosts = () => (dispatch) => {
-    dispatch({ type: LOADING_DATA});
+    dispatch({ type: LOADING_DATA });
     axios.get('/posts/opinion')
-    .then((res) => {
-        dispatch({
-            type: SET_OPINION_POSTS,
-            payload: res.data 
+        .then((res) => {
+            dispatch({
+                type: SET_OPINION_POSTS,
+                payload: res.data
+            })
         })
-    })
-    .catch((err) => {
-        dispatch({
-            type: SET_OPINION_POSTS,
-            payload: [] 
-        })
-    });
+        .catch((err) => {
+            dispatch({
+                type: SET_OPINION_POSTS,
+                payload: []
+            })
+        });
 }
 
 export const getTopOpinionPosts = () => (dispatch) => {
-    dispatch({ type: LOADING_DATA});
+    dispatch({ type: LOADING_DATA });
     axios.get('/posts/top/opinion')
-    .then((res) => {
-        dispatch({
-            type: SET_TOP_OPINION_POSTS,
-            payload: res.data 
+        .then((res) => {
+            dispatch({
+                type: SET_TOP_OPINION_POSTS,
+                payload: res.data
+            })
         })
-    })
-    .catch((err) => {
-        dispatch({
-            type: SET_TOP_OPINION_POSTS,
-            payload: [] 
-        })
-    });
+        .catch((err) => {
+            dispatch({
+                type: SET_TOP_OPINION_POSTS,
+                payload: []
+            })
+        });
 }
 
 export const getFunFactPosts = () => (dispatch) => {
-    dispatch({ type: LOADING_DATA});
+    dispatch({ type: LOADING_DATA });
     axios.get('/posts/funFact')
-    .then((res) => {
-        dispatch({
-            type: SET_FUN_FACT_POSTS,
-            payload: res.data 
+        .then((res) => {
+            dispatch({
+                type: SET_FUN_FACT_POSTS,
+                payload: res.data
+            })
         })
-    })
-    .catch((err) => {
-        dispatch({
-            type: SET_FUN_FACT_POSTS,
-            payload: [] 
-        })
-    });
+        .catch((err) => {
+            dispatch({
+                type: SET_FUN_FACT_POSTS,
+                payload: []
+            })
+        });
 }
 export const getTopFunFactPosts = () => (dispatch) => {
-    dispatch({ type: LOADING_DATA});
+    dispatch({ type: LOADING_DATA });
     axios.get('/posts/funFact')
-    .then((res) => {
-        dispatch({
-            type: SET_TOP_FUN_FACT_POSTS,
-            payload: res.data 
+        .then((res) => {
+            dispatch({
+                type: SET_TOP_FUN_FACT_POSTS,
+                payload: res.data
+            })
         })
-    })
-    .catch((err) => {
-        dispatch({
-            type: SET_TOP_FUN_FACT_POSTS,
-            payload: [] 
-        })
-    });
+        .catch((err) => {
+            dispatch({
+                type: SET_TOP_FUN_FACT_POSTS,
+                payload: []
+            })
+        });
 }
 
 export const getPlotHolesPosts = () => (dispatch) => {
-    dispatch({ type: LOADING_DATA});
+    dispatch({ type: LOADING_DATA });
     axios.get('/posts/plotHoles')
-    .then((res) => {
-        dispatch({
-            type: SET_PLOT_HOLES_POSTS,
-            payload: res.data 
+        .then((res) => {
+            dispatch({
+                type: SET_PLOT_HOLES_POSTS,
+                payload: res.data
+            })
         })
-    })
-    .catch((err) => {
-        dispatch({
-            type: SET_PLOT_HOLES_POSTS,
-            payload: [] 
-        })
-    });
+        .catch((err) => {
+            dispatch({
+                type: SET_PLOT_HOLES_POSTS,
+                payload: []
+            })
+        });
 }
 
 export const getTopPlotHolesPosts = () => (dispatch) => {
-    dispatch({ type: LOADING_DATA});
+    dispatch({ type: LOADING_DATA });
     axios.get('/posts/top/plotHoles')
-    .then((res) => {
-        dispatch({
-            type: SET_TOP_PLOT_HOLES_POSTS,
-            payload: res.data 
+        .then((res) => {
+            dispatch({
+                type: SET_TOP_PLOT_HOLES_POSTS,
+                payload: res.data
+            })
         })
-    })
-    .catch((err) => {
-        dispatch({
-            type: SET_TOP_PLOT_HOLES_POSTS,
-            payload: [] 
-        })
-    });
+        .catch((err) => {
+            dispatch({
+                type: SET_TOP_PLOT_HOLES_POSTS,
+                payload: []
+            })
+        });
 }
 
 // get posts on movie or tv show by id
@@ -166,13 +166,13 @@ export const getTopPostsByTitleId = (titleId) => (dispatch) => {
         .then((res) => {
             dispatch({
                 type: SET_TOP_POSTS_BY_TITLEID,
-                payload: res.data 
+                payload: res.data
             })
         })
         .catch(() => {
             dispatch({
                 type: SET_TOP_POSTS_BY_TITLEID,
-                payload: [] 
+                payload: []
             })
         })
 };
@@ -200,13 +200,13 @@ export const getFunFactPostsByTitleId = (titleId) => (dispatch) => {
         .then((res) => {
             dispatch({
                 type: SET_FUN_FACT_POSTS_BY_TITLEID,
-                payload: res.data 
+                payload: res.data
             })
         })
         .catch(() => {
             dispatch({
                 type: SET_FUN_FACT_POSTS_BY_TITLEID,
-                payload: [] 
+                payload: []
             })
         })
 };
@@ -217,13 +217,13 @@ export const getPlotHolesPostsByTitleId = (titleId) => (dispatch) => {
         .then((res) => {
             dispatch({
                 type: SET_PLOT_HOLES_POSTS_BY_TITLEID,
-                payload: res.data 
+                payload: res.data
             })
         })
         .catch(() => {
             dispatch({
                 type: SET_PLOT_HOLES_POSTS_BY_TITLEID,
-                payload: [] 
+                payload: []
             })
         })
 };
@@ -234,13 +234,13 @@ export const getTopOpinionPostsByTitleId = (titleId) => (dispatch) => {
         .then((res) => {
             dispatch({
                 type: SET_TOP_OPINION_POSTS_BY_TITLEID,
-                payload: res.data 
+                payload: res.data
             })
         })
         .catch(() => {
             dispatch({
                 type: SET_TOP_OPINION_POSTS_BY_TITLEID,
-                payload: [] 
+                payload: []
             })
         })
 };
@@ -251,13 +251,13 @@ export const getTopFunFactPostsByTitleId = (titleId) => (dispatch) => {
         .then((res) => {
             dispatch({
                 type: SET_TOP_FUN_FACT_POSTS_BY_TITLEID,
-                payload: res.data 
+                payload: res.data
             })
         })
         .catch(() => {
             dispatch({
                 type: SET_TOP_FUN_FACT_POSTS_BY_TITLEID,
-                payload: [] 
+                payload: []
             })
         })
 };
@@ -268,13 +268,13 @@ export const getTopPlotHolesPostsByTitleId = (titleId) => (dispatch) => {
         .then((res) => {
             dispatch({
                 type: SET_TOP_PLOT_HOLES_POSTS_BY_TITLEID,
-                payload: res.data 
+                payload: res.data
             })
         })
         .catch(() => {
             dispatch({
                 type: SET_TOP_PLOT_HOLES_POSTS_BY_TITLEID,
-                payload: [] 
+                payload: []
             })
         })
 };
@@ -378,6 +378,18 @@ export const submitComment = (postId, commentData) => (dispatch) => {
         });
 }
 
+export const deleteComment = (commentId, postId) => (dispatch) => {
+    const token = localStorage.getItem('FBIdToken');
+    axios.defaults.headers.common['Authorization'] = token;
+
+    axios.delete(`/comment/${commentId}`)
+    .then(() => {
+        // dispatch({ type: DELETE_COMMENT, payload: commentId })
+        dispatch(getPost(postId));
+    })
+    .catch((err) => console.log(err));
+}
+
 export const submitReplyToComment = (commentId, postId, repliedCommentData) => (dispatch) => {
     const token = localStorage.getItem('FBIdToken');
     axios.defaults.headers.common['Authorization'] = token; // in getTitles the axios header was deleted so have to add it again in order to have the permission to post a comment
@@ -418,7 +430,7 @@ export const getUserDataForUserPage = (userHandle) => (dispatch) => {
     axios.get(`/user/${userHandle}`)
         .then((res) => {
             dispatch({
-                type: SET_USER_FOR_USER_PAGE, 
+                type: SET_USER_FOR_USER_PAGE,
                 payload: res.data.user
             });
             dispatch({
@@ -437,7 +449,7 @@ export const getUserDataForUserPage = (userHandle) => (dispatch) => {
 export const getTitles = (searchValue, page) => (dispatch) => {
     dispatch({ type: LOADING_DATA });
     delete axios.defaults.headers.common['Authorization']; // have to delete the header or the get request would be blocked by CORS (Request header field authorization is not allowed by Access-Control-Allow-Headers in preflight response).
-    axios.get('https://www.omdbapi.com/?apikey='+ process.env.REACT_APP_OMDB_API_KEY + '&s=' + searchValue + '&page=' + page)
+    axios.get('https://www.omdbapi.com/?apikey=' + process.env.REACT_APP_OMDB_API_KEY + '&s=' + searchValue + '&page=' + page)
         .then((res) => {
             if (res.data.Response === 'True') {
                 dispatch({
@@ -467,7 +479,7 @@ export const clearSearchTitles = () => (dispatch) => {
 export const getTitle = (titleId) => (dispatch) => {
     dispatch({ type: LOADING_DATA });
     delete axios.defaults.headers.common['Authorization']; // have to delete the header or the get request would be blocked by CORS (Request header field authorization is not allowed by Access-Control-Allow-Headers in preflight response).
-    axios.get('https://www.omdbapi.com/?apikey='+ process.env.REACT_APP_OMDB_API_KEY + '&i=' + titleId)
+    axios.get('https://www.omdbapi.com/?apikey=' + process.env.REACT_APP_OMDB_API_KEY + '&i=' + titleId)
         .then((res) => {
             dispatch({
                 type: SET_TITLE,
@@ -489,7 +501,7 @@ export const chooseSeason = (season) => (dispatch) => {
 export const getTVSeason = (titleId, season) => (dispatch) => {
     dispatch({ type: LOADING_DATA });
     delete axios.defaults.headers.common['Authorization']; // have to delete the header or the get request would be blocked by CORS (Request header field authorization is not allowed by Access-Control-Allow-Headers in preflight response).
-    axios.get('https://www.omdbapi.com/?apikey='+ process.env.REACT_APP_OMDB_API_KEY + '&i=' + titleId + '&season=' + season)
+    axios.get('https://www.omdbapi.com/?apikey=' + process.env.REACT_APP_OMDB_API_KEY + '&i=' + titleId + '&season=' + season)
         .then((res) => {
             dispatch({
                 type: SET_TV_SEASON,
@@ -503,7 +515,7 @@ export const getTVSeason = (titleId, season) => (dispatch) => {
             //get the episode details (mainly the poster to display out in the list of episodes)
             res.data.Episodes.map((episode, index) => {
                 //console.log(`CHECKKKK ${JSON.stringify(episode)}`);
-                axios.get('https://www.omdbapi.com/?apikey='+ process.env.REACT_APP_OMDB_API_KEY + '&i=' + episode.imdbID)
+                axios.get('https://www.omdbapi.com/?apikey=' + process.env.REACT_APP_OMDB_API_KEY + '&i=' + episode.imdbID)
                     .then((res) => {
                         dispatch({
                             type: SET_EPISODE_OVERVIEW,
@@ -535,7 +547,7 @@ const getEpisodeOverview = (episodeId) => (dispatch) => {
 export const getEpisodeDetails = (episodeId) => (dispatch) => {
     dispatch({ type: LOADING_DATA });
     delete axios.defaults.headers.common['Authorization']; // have to delete the header or the get request would be blocked by CORS (Request header field authorization is not allowed by Access-Control-Allow-Headers in preflight response).
-    axios.get('https://www.omdbapi.com/?apikey='+ process.env.REACT_APP_OMDB_API_KEY + '&i=' + episodeId)
+    axios.get('https://www.omdbapi.com/?apikey=' + process.env.REACT_APP_OMDB_API_KEY + '&i=' + episodeId)
         .then((res) => {
             dispatch({
                 type: SET_EPISODE_DETAILS,
@@ -574,7 +586,7 @@ export const getTmdbInfo = (imdbId) => (dispatch) => {
                                 delete axios.defaults.headers.common['Authorization'];
 
                                 //get the movie from omdb api by using its imdb id
-                                axios.get('https://www.omdbapi.com/?apikey='+ process.env.REACT_APP_OMDB_API_KEY + '&i=' + imdbId)
+                                axios.get('https://www.omdbapi.com/?apikey=' + process.env.REACT_APP_OMDB_API_KEY + '&i=' + imdbId)
                                     .then((res) => {
                                         if (res.data.Response === 'True') {
                                             dispatch({
@@ -596,6 +608,42 @@ export const getTmdbInfo = (imdbId) => (dispatch) => {
         .catch((err) => console.log(err))
 }
 
+export const getHighlyRatedMovies = () => {
+    return async (dispatch) => {
+        const tmdbTitlesResponse = await axios.get('https://api.themoviedb.org/3/discover/movie?api_key=' + process.env.REACT_APP_TMDB_API_KEY + '&language=en-US&sort_by=vote_average.desc&include_adult=false&include_video=false&page=1&vote_count.gte=10000');
+
+        // console.log(JSON.stringify(tmdbTitlesResponse));
+        const highlyRatedMovies = [];
+
+        const highlyRatedMoviesArrayResponse = await Promise.all(tmdbTitlesResponse.data.results.map(async (highlyRatedMovie) => {
+            dispatch({ type: LOADING_HIGHLY_RATED_TITLE });
+            const tmdbId = highlyRatedMovie.id;
+            const tmdbIdResponse = await axios.get('https://api.themoviedb.org/3/movie/' + tmdbId + '/external_ids?api_key=' + process.env.REACT_APP_TMDB_API_KEY);
+
+            // console.log("checkpoint ");
+
+            const imdbId = tmdbIdResponse.data.imdb_id;
+            delete axios.defaults.headers.common['Authorization'];
+
+            const omdbResponse = await axios.get('https://www.omdbapi.com/?apikey=' + process.env.REACT_APP_OMDB_API_KEY + '&i=' + imdbId);
+            if (omdbResponse.data.Response === 'True') {
+                highlyRatedMovies.push(omdbResponse.data);
+            }
+            return highlyRatedMovie;
+        }
+        ));
+
+        dispatch({
+            type: SET_HIGHLY_RATED_MOVIES,
+            payload: highlyRatedMovies // array containing similar titles from tmdb
+        })
+        dispatch({
+            type: STOP_LOADING_HIGHLY_RATED_TITLE// set loading from ui back to false
+        });
+        return highlyRatedMoviesArrayResponse;
+    }
+}
+/*
 export const getHighlyRatedMovies = () => (dispatch) => {
 
     axios.get('https://api.themoviedb.org/3/discover/movie?api_key=' + process.env.REACT_APP_TMDB_API_KEY + '&language=en-US&sort_by=vote_average.desc&include_adult=false&include_video=false&page=1&vote_count.gte=10000')
@@ -633,6 +681,7 @@ export const getHighlyRatedMovies = () => (dispatch) => {
         .catch((err) => console.log(err))
 
 }
+*/
 
 export const getHighlyRatedTV = () => (dispatch) => {
     axios.get('https://api.themoviedb.org/3/discover/tv?api_key=' + process.env.REACT_APP_TMDB_API_KEY + '&language=en-US&sort_by=vote_average.desc&page=1&timezone=America%2FNew_York&vote_count.gte=900')
@@ -648,7 +697,7 @@ export const getHighlyRatedTV = () => (dispatch) => {
                         delete axios.defaults.headers.common['Authorization'];
 
                         //get the show from omdb api by using its imdb id
-                        axios.get('https://www.omdbapi.com/?apikey='+ process.env.REACT_APP_OMDB_API_KEY + '&i=' + imdbId)
+                        axios.get('https://www.omdbapi.com/?apikey=' + process.env.REACT_APP_OMDB_API_KEY + '&i=' + imdbId)
                             .then((res) => {
                                 if (res.data.Response === 'True') {
                                     dispatch({
@@ -669,6 +718,39 @@ export const getHighlyRatedTV = () => (dispatch) => {
         .catch((err) => console.log(err))
 };
 
+export const getPopularMovies = () => {
+    return async (dispatch) => {
+        const tmdbTitlesResponse = await axios.get('https://api.themoviedb.org/3/discover/movie?api_key=' + process.env.REACT_APP_TMDB_API_KEY + '&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=false&page=1');
+
+        const popularMovies = [];
+
+        const popularMovesArrayResponse = await Promise.all(tmdbTitlesResponse.data.results.map(async (popularMovie) => {
+            dispatch({ type: LOADING_POPULAR_TITLE });
+            const tmdbId = popularMovie.id; 
+            const externalIdTmdbResponse = await axios.get('https://api.themoviedb.org/3/movie/' + tmdbId + '/external_ids?api_key=' + process.env.REACT_APP_TMDB_API_KEY);
+            
+            const imdbId = externalIdTmdbResponse.data.imdb_id;
+            delete axios.defaults.headers.common['Authorization'];
+
+            const omdbResponse = await axios.get('https://www.omdbapi.com/?apikey=' + process.env.REACT_APP_OMDB_API_KEY + '&i=' + imdbId);
+            console.log("omdbResponse: ", JSON.stringify(omdbResponse));
+            if (omdbResponse.data.Response === 'True') {
+                popularMovies.push(omdbResponse.data);
+            }
+            return popularMovies; 
+        }));
+        dispatch({
+            type: SET_POPULAR_MOVIES,
+            payload: popularMovies // array containing similar titles from tmdb
+        });
+        dispatch({
+            type: STOP_LOADING_POPULAR_TITLE// set loading from ui back to false
+        });
+        return popularMovesArrayResponse; 
+    }
+}
+
+/*
 export const getPopularMovies = () => (dispatch) => {
 
     axios.get('https://api.themoviedb.org/3/discover/movie?api_key=' + process.env.REACT_APP_TMDB_API_KEY + '&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=false&page=1')
@@ -685,7 +767,7 @@ export const getPopularMovies = () => (dispatch) => {
                         delete axios.defaults.headers.common['Authorization'];
 
                         //get the movie from omdb api by using its imdb id
-                        axios.get('https://www.omdbapi.com/?apikey='+ process.env.REACT_APP_OMDB_API_KEY + '&i=' + imdbId)
+                        axios.get('https://www.omdbapi.com/?apikey=' + process.env.REACT_APP_OMDB_API_KEY + '&i=' + imdbId)
                             .then((res) => {
                                 if (res.data.Response === 'True') {
                                     dispatch({
@@ -706,6 +788,7 @@ export const getPopularMovies = () => (dispatch) => {
         .catch((err) => console.log(err))
 
 }
+*/
 
 export const getPopularTV = () => (dispatch) => {
     axios.get('https://api.themoviedb.org/3/discover/tv?api_key=' + process.env.REACT_APP_TMDB_API_KEY + '&language=en-US&sort_by=popularity.desc&page=1&vote_count.gte=2000')
@@ -721,7 +804,7 @@ export const getPopularTV = () => (dispatch) => {
                         delete axios.defaults.headers.common['Authorization'];
 
                         //get the show from omdb api by using its imdb id
-                        axios.get('https://www.omdbapi.com/?apikey='+ process.env.REACT_APP_OMDB_API_KEY + '&i=' + imdbId)
+                        axios.get('https://www.omdbapi.com/?apikey=' + process.env.REACT_APP_OMDB_API_KEY + '&i=' + imdbId)
                             .then((res) => {
                                 if (res.data.Response === 'True') {
                                     dispatch({
@@ -742,6 +825,37 @@ export const getPopularTV = () => (dispatch) => {
         .catch((err) => console.log(err))
 }
 
+export const getTrendingMovies = () => {
+    return async (dispatch) => {
+        const tmdbTitlesResponse = await axios.get('https://api.themoviedb.org/3/trending/movie/day?api_key=' + process.env.REACT_APP_TMDB_API_KEY);
+
+        const trendingMovies = [];
+
+        const trendingMovesArrayResponse = await Promise.all(tmdbTitlesResponse.data.results.map(async (trendingMovie) => {
+            dispatch({ type: LOADING_TRENDING_TITLE });
+            const tmdbId = trendingMovie.id;
+            const externalIdTmdbResponse = await axios.get('https://api.themoviedb.org/3/movie/' + tmdbId + '/external_ids?api_key=' + process.env.REACT_APP_TMDB_API_KEY);
+
+            const imdbId = externalIdTmdbResponse.data.imdb_id;
+            delete axios.defaults.headers.common['Authorization'];
+
+            const omdbResponse = await axios.get('https://www.omdbapi.com/?apikey=' + process.env.REACT_APP_OMDB_API_KEY + '&i=' + imdbId);
+            if (omdbResponse.data.Response === 'True') {
+                trendingMovies.push(omdbResponse.data);
+            }
+            return trendingMovies; 
+        }));
+        dispatch({
+            type: SET_TRENDING_MOVIES,
+            payload: trendingMovies// array containing similar titles from tmdb
+        });
+        dispatch({
+            type: STOP_LOADING_TRENDING_TITLE// set loading from ui back to false
+        });
+        return trendingMovesArrayResponse;
+    }
+}
+/*
 export const getTrendingMovies = () => (dispatch) => {
     dispatch({ type: LOADING_TRENDING_TITLE });
     axios.get('https://api.themoviedb.org/3/trending/movie/day?api_key=' + process.env.REACT_APP_TMDB_API_KEY)
@@ -756,7 +870,7 @@ export const getTrendingMovies = () => (dispatch) => {
                         delete axios.defaults.headers.common['Authorization'];
 
                         //get the movie from omdb api by using its imdb id
-                        axios.get('https://www.omdbapi.com/?apikey='+ process.env.REACT_APP_OMDB_API_KEY + '&i=' + imdbId)
+                        axios.get('https://www.omdbapi.com/?apikey=' + process.env.REACT_APP_OMDB_API_KEY + '&i=' + imdbId)
                             .then((res) => {
                                 if (res.data.Response === 'True')
                                     dispatch({
@@ -777,6 +891,7 @@ export const getTrendingMovies = () => (dispatch) => {
         type: STOP_LOADING_TRENDING_TITLE// set loading from ui back to false
     });
 }
+*/ 
 
 export const getTrendingTV = () => (dispatch) => {
     axios.get('https://api.themoviedb.org/3/trending/tv/day?api_key=' + process.env.REACT_APP_TMDB_API_KEY)
@@ -791,7 +906,7 @@ export const getTrendingTV = () => (dispatch) => {
                         delete axios.defaults.headers.common['Authorization'];
 
                         //get the movie from omdb api by using its imdb id
-                        axios.get('https://www.omdbapi.com/?apikey='+ process.env.REACT_APP_OMDB_API_KEY + '&i=' + imdbId)
+                        axios.get('https://www.omdbapi.com/?apikey=' + process.env.REACT_APP_OMDB_API_KEY + '&i=' + imdbId)
                             .then((res) => {
                                 if (res.data.Response === 'True') {
                                     dispatch({
@@ -868,7 +983,7 @@ export const getRecommendedMovies = (favoriteMovieGenresNames, movieGenres) => (
 
                         delete axios.defaults.headers.common['Authorization'];
                         //get the movie from omdb api by using its imdb id
-                        axios.get('https://www.omdbapi.com/?apikey='+ process.env.REACT_APP_OMDB_API_KEY + '&i=' + imdbId)
+                        axios.get('https://www.omdbapi.com/?apikey=' + process.env.REACT_APP_OMDB_API_KEY + '&i=' + imdbId)
                             .then((res) => {
                                 if (res.data.Response === 'True') {
                                     dispatch({
@@ -916,7 +1031,7 @@ export const getRecommendedTVs = (favoriteTVGenresNames, tvGenres) => (dispatch)
                         delete axios.defaults.headers.common['Authorization'];
 
                         //get the movie from omdb api by using its imdb id
-                        axios.get('https://www.omdbapi.com/?apikey='+ process.env.REACT_APP_OMDB_API_KEY + '&i=' + imdbId)
+                        axios.get('https://www.omdbapi.com/?apikey=' + process.env.REACT_APP_OMDB_API_KEY + '&i=' + imdbId)
                             .then((res) => {
                                 if (res.data.Response === 'True')
                                     dispatch({
@@ -950,13 +1065,13 @@ export const setScrollToComment = (commentId) => (dispatch) => {
         type: CLEAR_COMMENT_SCROLL_TO
     });
     axios.get(`/comment/${commentId}`)
-    .then((res) => {
-        dispatch({ 
-            type: COMMENT_SCROLL_TO,
-            payload: res.data
-        });
-    })
-    .catch((err) => console.log(err));
+        .then((res) => {
+            dispatch({
+                type: COMMENT_SCROLL_TO,
+                payload: res.data
+            });
+        })
+        .catch((err) => console.log(err));
 
 }
 
@@ -965,21 +1080,21 @@ export const setScrollToRepliedComment = (repliedCommentId, parentCommentId) => 
         type: CLEAR_REPLIED_COMMENT_SCROLL_TO
     });
     axios.get(`/repliedComment/${repliedCommentId}`)
-    .then((res) => {
-        dispatch({
-            type: REPLIED_COMMENT_SCROLL_TO,
-            payload: res.data
-        });
-        axios.get(`/comment/${parentCommentId}`)
-            .then((res) => {
-                dispatch({
-                    type: SET_PARENT_COMMENT,
-                    payload: res.data
-                });
-            })
-            .catch((err) => console.log(err));
-    })
-    .catch((err) => console.log(err));
+        .then((res) => {
+            dispatch({
+                type: REPLIED_COMMENT_SCROLL_TO,
+                payload: res.data
+            });
+            axios.get(`/comment/${parentCommentId}`)
+                .then((res) => {
+                    dispatch({
+                        type: SET_PARENT_COMMENT,
+                        payload: res.data
+                    });
+                })
+                .catch((err) => console.log(err));
+        })
+        .catch((err) => console.log(err));
 }
 // clear the state's posts array when rendering specific season's or episode's posts 
 export const clearPosts = () => (dispatch) => {

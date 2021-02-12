@@ -252,6 +252,7 @@ class home extends Component {
         const { posts, loading, recommendedMovies, recommendedTVs, loadingRecommendedTitle } = this.props.data; //posts and loading are properties of dataReducer
         const { authenticated } = this.props.user;
         const { movieGenres, tvGenres } = this.props.credentials;
+        
         let recentPostsMarkup =
             <Fragment>
                 <SortPostBar tabValue={this.state.tabValue} handleTabChange={this.handleTabChange} sortBy={this.state.sortBy} handleSortPostSelect={this.handleSortPostSelect} handleCategoryPostSelect={this.handleCategoryPostSelect} handleRecentTopToggleChange={this.handleRecentTopToggleChange} />
