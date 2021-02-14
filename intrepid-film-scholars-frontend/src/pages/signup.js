@@ -36,7 +36,7 @@ class signup extends Component {
         this.state = {
             email: '',
             password: '',
-            comfirmPassword: '',
+            confirmPassword: '',
             handle: '',
             errors: {},
             isSignedIn: false
