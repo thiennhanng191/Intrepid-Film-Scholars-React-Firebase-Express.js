@@ -31,6 +31,7 @@ import postDetails from './pages/postDetails';
 
 import axios from 'axios';
 import SignupPage from './pages/SignupPage/SignupPage';
+import LoginPage from './pages/LoginPage/LoginPage';
 
 const muiTheme = createMuiTheme(themeUtil);
 
@@ -62,7 +63,7 @@ function App() {
             <div className="container">
               <Switch>
                 <Route exact path="/" component={home} />
-                <AuthRoute exact path="/login" component={login} />
+                <AuthRoute exact path="/login" component={LoginPage} />
                 <AuthRoute exact path="/signup" component={SignupPage} />
                 <Route exact path='/moviesTV' component={moviesTV} />
                 <Route exact path='/moviesTV/title=:titleId' component={movieTVdetails} />

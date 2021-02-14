@@ -1,17 +1,15 @@
 import { Button, CircularProgress, Grid, Link, TextField, Typography } from '@material-ui/core'
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { signupUser } from '../../redux/actions/userActions';
+import { loginUser } from '../../redux/actions/userActions';
 import useStyles from './styles.js';
 
 import AppIcon from '../../images/ifs_logo_colored.svg';
 
-const SignupPage = (props) => {
+const LoginPage = (props) => {
     const classes = useStyles(); 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [handle, setHandle] = useState('');
     const [errors, setErrors] = useState({});
 
     const dispatch = useDispatch();
@@ -28,13 +26,11 @@ const SignupPage = (props) => {
     const handleSubmit = (event) => {
         event.preventDefault(); 
         setLoading(true);
-        const newUserData = {
+        const userData = {
             email: email,
-            password: password, 
-            confirmPassword: confirmPassword, 
-            handle: handle
+            password: password,
         }
-        dispatch(signupUser(newUserData, props.history));
+        dispatch(loginUser(userData, props.history));
     }
 
     return (
@@ -72,30 +68,6 @@ const SignupPage = (props) => {
                             onChange={(e) => setPassword(e.target.value)}
                             fullWidth
                         />
-                        <TextField
-                            id="confirmPassword"
-                            name="confirmPassword"
-                            type="password"
-                            label="Confirm Password"
-                            className={classes.textField}
-                            value={confirmPassword}
-                            helperText={errors.confirmPassword}
-                            error={errors.confirmPassword ? true : false}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            fullWidth
-                        />
-                        <TextField
-                            id="handle"
-                            name="handle"
-                            type="text"
-                            label="Username"
-                            className={classes.textField}
-                            value={handle}
-                            helperText={errors.handle}
-                            error={errors.handle ? true : false}
-                            onChange={(e) => setHandle(e.target.value)}
-                            fullWidth
-                        />
                         {errors.general && (
                             <Typography variant="body2" className={classes.customError}>
                                 {errors.general}
@@ -108,8 +80,8 @@ const SignupPage = (props) => {
                             className={classes.button}
                             disabled={loading}
                         >
-                            Signup
-                        {loading && (
+                            Log in
+                        {UIloading && (
                                 <CircularProgress size={30} className={classes.progress} />
                             )}
                         </Button>
@@ -125,4 +97,4 @@ const SignupPage = (props) => {
     )
 }
 
-export default SignupPage
+export default LoginPage
