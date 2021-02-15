@@ -16,7 +16,7 @@ const { db } = require('./util/admin');
 
 const { getAllPosts, getAllPostsOrderedByLikes, uploadAPost, getPost, deleteComment, getComment, getRepliedComment, commentOnPost, replyCommentOnPost, likePost, unlikePost, deletePost } = require('./handlers/posts');
 const { getPostsById, getPostsByIdOrderedByLikes, getPostsByOpinion, getPostsByOpinionOrderedByLikes, getPostsByFunFact, getPostsByFunFactOrderedByLikes, getPostsByPlotHoles, getPostsByPlotHolesOrderedByLikes, getPostsByIdByOpinion, getPostsByIdByFunFact, getPostsByIdByPlotHoles, getPostsByIdByOpinionOrderedByLikes, getPostsByIdByFunFactOrderedByLikes, getPostsByIdByPlotHolesOrderedByLikes } = require('./handlers/posts');
-const { signup, login, uploadImage, addUserDetails, getAuthenticatedUser, getUserDetails, getAllUsers, markNotificationRead, getAuthenticatedUserNotifications } = require('./handlers/users');
+const { signup, login, uploadImage, addUserDetails, getAuthenticatedUser, getUserDetails, getAllUsers, markNotificationRead, getAuthenticatedUserNotifications, googleSignupHandle, changeUserHandle } = require('./handlers/users');
 
 /*
     posts routes
@@ -57,11 +57,13 @@ app.post('/post/:postId/comment/:commentId/comment', FBAuth, replyCommentOnPost)
 */
 app.post('/signup', signup) // Signup route (https://<baseurl>.com/api/signup)
 app.post('/login', login) //login route (https://<baseurl>.com/api/login)
+app.post('/signup/google', googleSignupHandle);
 app.post('/user/image', FBAuth, uploadImage); //upload image route - it's a protected route
 app.post('/user', FBAuth, addUserDetails); //add user details route 
 app.get('/user', FBAuth, getAuthenticatedUser); //get user details route
 //https://<baseurl>.com/api/ 
 app.get('/user/:handle', getUserDetails);
+app.post('/user/:handle/changeHandle', FBAuth, changeUserHandle);
 app.get('/users', getAllUsers);
 app.post('/notifications', FBAuth, markNotificationRead);
 // app.get('/notifications/:handle', getAuthenticatedUserNotifications);

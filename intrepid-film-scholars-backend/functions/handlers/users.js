@@ -60,6 +60,62 @@ exports.signup = (req, res) => {
         })
 }
 
+exports.googleSignupHandle = (req, res) => {
+    const token = req.body.token;
+    db.collection('users').where('email', '==', req.body.email).get()
+        .then((data) => {
+
+            console.log('data: ', data);
+            console.log('checkpoint 0.0');
+            if (data._size === 0) {
+                db.doc(`/users/${req.body.handle}`).get()
+                    .then((doc) => {
+                        if (doc.exists) {
+                            return res.status(400).json({ handle: ' this handle is already taken' });
+                        } else {
+                            console.log('checkpoint 2');
+                            const userCredentials = {
+                                handle: req.body.handle,
+                                email: req.body.email,
+                                createdAt: new Date().toISOString(),
+                                imageUrl: req.body.imageUrl,
+                                userId: req.body.uid
+                            }
+                            db.doc(`/users/${req.body.handle}`).set(userCredentials);
+                        }
+                    })
+                    .then(() => {
+                        return res.status(201).json({ token })
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        return res.status(500).json({ general: 'Something went wrong, please try again' }) // internal server error
+                    })
+            }
+            else {
+                data.forEach((doc) => {
+
+                    if (doc.exists) {
+                        console.log('data exists')
+
+                    } else {
+                        console.log('data not exists')
+
+                    }
+
+                    // console.log('existingUser: ', doc.data());
+                    existingUser = doc.data();
+                    console.log('checkpoint 0')
+                    if (existingUser) {
+                        return res.status(400).json({ email: 'Email is already in use' });
+                    }
+                })
+            }
+        }).catch((err) => {
+            return res.status(500).json({ general: 'Something went wrong, please try again' }) // internal server error
+        });
+}
+
 // Log in a user
 exports.login = (req, res) => {
     const user = {
@@ -138,6 +194,51 @@ exports.getUserDetails = (req, res) => {
             return res.status(500).json({ error: err.code });
         })
 }
+
+// Change user's handle
+// Need to copy the document details to a new document with the new name of the new handle
+// Then delete the old document
+exports.changeUserHandle = (req, res) => {
+    console.log("old user handle", req.user.handle);
+    const oldUserHandle = req.user.handle;
+    db.collection('users').doc(oldUserHandle).get()
+        .then((doc) => {
+            console.log('checkpoint 0');
+            console.log("doc: ", doc);
+            if (doc && doc.exists) {
+                const userData = doc.data();
+                userData.handle = req.body.newHandle;
+                console.log('checkpoint 1');
+
+                db.doc(`/users/${req.body.newHandle}`).get()
+                    .then((doc) => {
+                        if (doc.exists) {
+                            return res.status(400).json({ handle: ' this handle is already taken' });
+                        } else {
+                            db.collection('users').doc(req.body.newHandle).set(userData)
+                                .then(() => {
+                                    console.log('checkpoint 2');
+                                    // delete the old document with the old handle
+                                    return db.collection('users').doc(oldUserHandle).delete()
+                                        .then(() => {
+                                            console.log('checkpoint 3');
+                                            return res.status(200).json(userData);
+                                        });
+                                }).catch((err) => {
+                                    console.error(err);
+                                    return res.status(500).json({ error: err.code });
+                                });
+                        }
+                    }).catch((err) => {
+                        console.error(err);
+                        return res.status(500).json({ error: err.code });
+                    });
+            }
+        }).catch((err) => {
+            console.error(err);
+            return res.status(500).json({ error: err.code });
+        });
+}
 // Get own user's details
 exports.getAuthenticatedUser = (req, res) => {
     let userData = {}
@@ -179,10 +280,10 @@ exports.getAuthenticatedUser = (req, res) => {
                     parentCommentId: doc.data().parentCommentId ? doc.data().parentCommentId : '',
                 })
                 */
-                
+
                 db.doc(`posts/${doc.data().postId}`).get()
                     .then((doc) => { // doc refers to the post's documemt
-                       return doc.data();
+                        return doc.data();
                     })
                     .then((data) => { //data refers to the post object
                         userData.notifications.push({
@@ -198,7 +299,7 @@ exports.getAuthenticatedUser = (req, res) => {
                             parentCommentId: doc.data().parentCommentId ? doc.data().parentCommentId : '',
                             repliedCommentId: doc.data().repliedCommentId ? doc.data().repliedCommentId : '',
                         });
-                        return userData.notifications.sort((a,b) => (b.createdAt > a.createdAt) ? 1 : -1);
+                        return userData.notifications.sort((a, b) => (b.createdAt > a.createdAt) ? 1 : -1);
                     })
                     .catch((err) => {
                         console.error(err);
