@@ -99,7 +99,7 @@ const styles = (theme) => ({
         [theme.breakpoints.down('sm')]: {
             fontSize: '0.9rem'
         },
-        color: 'gray',
+        color: 'gray !important',
         fontSize: '1.05rem',
         width: '100%'
     },

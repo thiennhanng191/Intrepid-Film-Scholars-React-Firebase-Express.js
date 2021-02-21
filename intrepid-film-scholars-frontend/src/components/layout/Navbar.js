@@ -66,6 +66,9 @@ const styles = (theme) => ({
     },
     expandMoreIcon: {
         transform: 'rotate(180deg)'
+    },
+    menuItemLinkTypography: {
+        color: "inherit !important"
     }
 })
 
@@ -161,7 +164,7 @@ class Navbar extends Component {
                     onClose={this.handleMobileMenuClose}
                     style={{ disableScrollLock: true }}
                 >
-                    <MenuItem onClick={this.handleMobileMenuClose} component={Link} to={`/moviesTV`}>
+                    <MenuItem onClick={this.handleMobileMenuClose} component={Link} to={`/moviesTV`} className={classes.menuItemLinkTypography}>
                         <MovieIcon className={classes.dropDownIcon} />
                         <Typography variant='body1'>
                             Discover
@@ -170,11 +173,11 @@ class Navbar extends Component {
                     <MenuItem onClick={this.handleOpenAboutDialog}>
                         <InfoIcon className={classes.dropDownIcon} /> About
                     </MenuItem>
-                    <MenuItem onClick={this.handleMobileMenuClose} component={Link} to={`/user/${handle}`}>
+                    <MenuItem onClick={this.handleMobileMenuClose} component={Link} to={`/user/${handle}`} className={classes.menuItemLinkTypography}>
                         <ProfileIcon className={classes.dropDownIcon} /> Profile
                 </MenuItem>
 
-                    <MenuItem onClick={this.handleMobileLogout} component={Link} to={`/`}>
+                    <MenuItem onClick={this.handleMobileLogout} component={Link} to={`/`} className={classes.menuItemLinkTypography}>
                         <LogoutIcon className={classes.dropDownIcon} />Logout
                 </MenuItem>
                     <MenuItem style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -195,7 +198,7 @@ class Navbar extends Component {
                         onClose={this.handleMobileMenuClose}
                         style={{ disableScrollLock: true }}
                     >
-                        <MenuItem onClick={this.handleMobileMenuClose} component={Link} to={`/moviesTV`}>
+                        <MenuItem onClick={this.handleMobileMenuClose} component={Link} to={`/moviesTV`} className={classes.menuItemLinkTypography}>
                             <MovieIcon className={classes.dropDownIcon} />
                             <Typography variant='body1'>
                                 Discover
@@ -204,11 +207,11 @@ class Navbar extends Component {
                         <MenuItem onClick={this.handleOpenAboutDialog}>
                             <InfoIcon className={classes.dropDownIcon} /> About
                     </MenuItem>
-                        <MenuItem onClick={this.handleMobileMenuClose} component={Link} to={`/login`}>
+                        <MenuItem onClick={this.handleMobileMenuClose} component={Link} to={`/login`} className={classes.menuItemLinkTypography}>
                             <LoginIcon className={classes.dropDownIcon} /> Log in
                 </MenuItem>
 
-                        <MenuItem onClick={this.handleMobileMenuClose} component={Link} to={`/signup`}>
+                        <MenuItem onClick={this.handleMobileMenuClose} component={Link} to={`/signup`} className={classes.menuItemLinkTypography}>
                             <SignupIcon className={classes.dropDownIcon} />Sign up
                 </MenuItem>
                         <MenuItem style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -235,11 +238,11 @@ class Navbar extends Component {
                         <InfoIcon className={classes.dropDownIcon} /> About
                     </MenuItem>
 
-                    <MenuItem onClick={this.handleProfileClose} component={Link} to={`/user/${handle}`}>
+                    <MenuItem onClick={this.handleProfileClose} component={Link} to={`/user/${handle}`} className={classes.menuItemLinkTypography}>
                         <ProfileIcon className={classes.dropDownIcon} /> Profile
                     </MenuItem>
 
-                    <MenuItem onClick={this.handleLogout} component={Link} to={`/`}>
+                    <MenuItem onClick={this.handleLogout} component={Link} to={`/`} className={classes.menuItemLinkTypography}>
                         <LogoutIcon className={classes.dropDownIcon} />Logout
                 </MenuItem>
                     <MenuItem style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -262,11 +265,11 @@ class Navbar extends Component {
                             <InfoIcon className={classes.dropDownIcon} /> About
                     </MenuItem>
 
-                        <MenuItem onClick={this.handleProfileClose} component={Link} to={`/login`}>
+                        <MenuItem onClick={this.handleProfileClose} component={Link} to={`/login`} className={classes.menuItemLinkTypography}>
                             <LoginIcon className={classes.dropDownIcon} /> Log in
                         </MenuItem>
 
-                        <MenuItem onClick={this.handleProfileClose} component={Link} to={`/signup`}>
+                        <MenuItem onClick={this.handleProfileClose} component={Link} to={`/signup`} className={classes.menuItemLinkTypography}>
                             <SignupIcon className={classes.dropDownIcon} />Sign up
                         </MenuItem>
                         <MenuItem style={{ display: 'flex', justifyContent: 'space-between' }}>

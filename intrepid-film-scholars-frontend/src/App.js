@@ -22,7 +22,6 @@ import AuthRoute from './util/AuthRoute';
 
 // import pages
 import home from './pages/home';
-import login from './pages/login';
 import user from './pages/user';
 import moviesTV from './pages/moviesTV';
 import movieTVdetails from './pages/movieTVdetails';

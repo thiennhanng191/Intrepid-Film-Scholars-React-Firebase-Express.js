@@ -1,8 +1,9 @@
-import { Button, CircularProgress, Grid, Link, TextField, Typography } from '@material-ui/core'
+import { Button, CircularProgress, Grid, TextField, Typography } from '@material-ui/core'
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { signupUser } from '../../redux/actions/userActions';
 import useStyles from './styles.js';
+import { Link } from 'react-router-dom';
 
 import AppIcon from '../../images/ifs_logo_colored.svg';
 
@@ -115,7 +116,7 @@ const SignupPage = (props) => {
                         </Button>
                         <div id="container" className={classes.footer}>
                             <Typography variant='body2' style={{ textAlign: 'center' }}>
-                                Already have an account? Login <Link to='/login'>here</Link>
+                                Already have an account? <Link to='/login'>Log in</Link>
                             </Typography>
                         </div>
                     </form>

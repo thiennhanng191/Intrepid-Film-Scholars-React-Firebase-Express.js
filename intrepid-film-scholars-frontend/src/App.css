@@ -120,7 +120,7 @@ a{
   object-fit: cover;
 }
 a {
-  color: #01B2BF;
+  color: #01B2BF !important;
 }
 
 #movies-tv-toggle .MuiToggleButton-root {

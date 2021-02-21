@@ -20,9 +20,11 @@ export const GlobalStyles = createGlobalStyle`
   #title-in-post-details .MuiTypography-root {
     color: white;
   }
+  
   .MuiTypography-root {
     color: ${({ theme }) => theme.text};
   }
+  
   #comment-form {
       background-color: ${({ theme }) => theme.textField};
   }

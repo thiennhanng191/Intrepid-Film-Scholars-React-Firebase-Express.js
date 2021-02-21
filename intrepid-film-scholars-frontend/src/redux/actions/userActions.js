@@ -109,7 +109,7 @@ export const markNotificationsRead = (notificationIds) => (dispatch) => {
 }
 
 // export const addPostToNotification = (postId)
-const setAuthorizationHeader = (token) => {
+export const setAuthorizationHeader = (token) => {
     const FBIdToken = `Bearer ${token}`;
     localStorage.setItem('FBIdToken', FBIdToken);
     axios.defaults.headers.common['Authorization'] = FBIdToken; // send a header of type Authorization and value of "Bearer <Token>" when sending a post request
