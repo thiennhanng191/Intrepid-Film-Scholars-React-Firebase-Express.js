@@ -1,4 +1,4 @@
-let db = [
+let db = {
     user: [
         {
             userId: 'hdhagsafhw98w4',
@@ -10,12 +10,12 @@ let db = [
             website: 'https://user.com',
             location: 'Poughkeepsie, NY'
         }
-    ]
+    ],
     posts: [
         {
-            userHandle: 'user' //idendify who's the owner of the post 
+            userHandle: 'user', //idendify who's the owner of the post 
             body: 'this is the scream body',
-            createdAt: '2020-05-06T19:32:47.614Z'
+            createdAt: '2020-05-06T19:32:47.614Z',
             likeCount: 5, 
             commentCount: 2
         }
@@ -38,7 +38,7 @@ let db = [
             createdAt: '2020-05-06T19:32:47.614Z'
         }
     ]
-]
+}
 
 const userDetails = {
     //Redux data 

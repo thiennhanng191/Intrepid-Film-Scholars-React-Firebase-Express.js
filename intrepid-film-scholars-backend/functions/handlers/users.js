@@ -60,13 +60,35 @@ exports.signup = (req, res) => {
         })
 }
 
-exports.googleSignupHandle = (req, res) => {
+exports.registerNewUserFromGoogleSignin = (req, res) => {
+    db.doc(`/users/${req.body.handle}`).get()
+        .then((doc) => {
+            if (doc.exists) {
+                return res.status(400).json({ handle: ' this handle is already taken' });
+            } else {
+                console.log('checkpoint 2');
+                const userCredentials = {
+                    handle: req.body.handle,
+                    email: req.body.email,
+                    createdAt: new Date().toISOString(),
+                    imageUrl: req.body.imageUrl,
+                    userId: req.body.uid
+                }
+                db.doc(`/users/${req.body.handle}`).set(userCredentials);
+            }
+        })
+        .then(() => {
+            return res.status(201).json({ message: 'New user created successfully' });
+        })
+        .catch((err) => {
+            console.log(err);
+            return res.status(500).json({ general: 'Something went wrong, please try again' }) // internal server error
+        })
+        
+    /*
     const token = req.body.token;
     db.collection('users').where('email', '==', req.body.email).get()
         .then((data) => {
-
-            console.log('data: ', data);
-            console.log('checkpoint 0.0');
             if (data._size === 0) {
                 db.doc(`/users/${req.body.handle}`).get()
                     .then((doc) => {
@@ -94,16 +116,11 @@ exports.googleSignupHandle = (req, res) => {
             }
             else {
                 data.forEach((doc) => {
-
                     if (doc.exists) {
                         console.log('data exists')
-
                     } else {
                         console.log('data not exists')
-
                     }
-
-                    // console.log('existingUser: ', doc.data());
                     existingUser = doc.data();
                     console.log('checkpoint 0')
                     if (existingUser) {
@@ -114,6 +131,8 @@ exports.googleSignupHandle = (req, res) => {
         }).catch((err) => {
             return res.status(500).json({ general: 'Something went wrong, please try again' }) // internal server error
         });
+
+        */
 }
 
 // Log in a user
@@ -266,20 +285,6 @@ exports.getAuthenticatedUser = (req, res) => {
             userData.notifications = [];
             data.forEach((doc) => {
                 let postDetails = {};
-                /*
-                userData.notifications.push({
-                    recipient: doc.data().recipient, // doc refers to the notification doc
-                    sender: doc.data().sender,
-                    createdAt: doc.data().createdAt,
-                    postId: doc.data().postId,
-                    type: doc.data().type,
-                    read: doc.data().read,
-                    notificationId: doc.id,
-                    //postDetails: data,
-                    commentId: doc.data().commentId ? doc.data().commentId : '',
-                    parentCommentId: doc.data().parentCommentId ? doc.data().parentCommentId : '',
-                })
-                */
 
                 db.doc(`posts/${doc.data().postId}`).get()
                     .then((doc) => { // doc refers to the post's documemt

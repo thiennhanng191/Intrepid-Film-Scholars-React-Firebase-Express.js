@@ -90,7 +90,7 @@ const styles = (theme) => ({
         paddingTop: 5
     },
     buttonText: {
-        color: 'gray',
+        color: 'gray !important',
         [theme.breakpoints.down('sm')]: {
             fontSize: '0.85rem'
         },

@@ -9,36 +9,13 @@ import AppIcon from '../../images/ifs_logo_colored.svg';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase';
 
-import { getUserData, setAuthorizationHeader } from '../../redux/actions/userActions';
+import { getUserData, setAuthorizationHeader, registerUserFromGoogleSignin } from '../../redux/actions/userActions';
 const config = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
     authDomain: 'us-social-app.firebaseapp.com',
-    // ...
 };
 
 firebase.initializeApp(config);
-
-// Configure FirebaseUI.
-const uiConfig = {
-    
-    // Popup signin flow rather than redirect flow.
-    signInFlow: 'popup',
-    // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
-    signInSuccessUrl: '/',
-    // We will display Google and Facebook as auth providers.
-    signInOptions: [
-        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-    ],
-    callbacks: {
-        signInSuccessWithAuthResult: (authResult, redirectUrl) => {
-            console.log("authResult: ", authResult);
-            console.log("user from auth: ", authResult.user)
-            return true; 
-        },
-    }
-    
-};
 
 
 const LoginPage = (props) => {
@@ -53,23 +30,52 @@ const LoginPage = (props) => {
 
     const [loading, setLoading] = useState(UIloading);
 
+
+    // Configure FirebaseUI.
+    const uiConfig = {
+        // Popup signin flow rather than redirect flow.
+        signInFlow: 'popup',
+        // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
+        signInSuccessUrl: '/',
+        // We will display Google and Facebook as auth providers.
+        signInOptions: [
+            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+        ],
+        callbacks: {
+            signInSuccessWithAuthResult: (authResult, redirectUrl) => {
+                const user = authResult.user; 
+                /* sign in first time -> adding user to the db */
+                if (authResult.additionalUserInfo.isNewUser) {
+                    const newUser = {
+                        "uid": user.uid, 
+                        "handle": user.email.split("@")[0],
+                        "email": user.email, 
+                        "imageUrl": user.photoURL
+                    }
+                    dispatch(registerUserFromGoogleSignin(newUser)); 
+
+                    // no redirect here 
+                    // => authenticate and redirect have been handling inside of getUserData(), which is called in firebase.auth().onAuthStateChanged 
+                    return false; 
+                }
+                return true;
+            },
+        }
+    };
+
+
     useEffect(() => {
         setLoading(UIloading);
         setErrors(UIerrors);
 
         firebase.auth().onAuthStateChanged((user) => {
-            // console.log("user: ", user);
             if (user) {
-                console.log("user: ", user);
-                console.log('user uid: ', user.uid);
-                console.log('user token: ', user.getIdToken().then((idToken) => console.log('id token: ', idToken)));
-                console.log('user token id: ', Object.keys(user.getIdToken()))
-                
                 user.getIdToken().then((idToken) => setAuthorizationHeader(idToken)).catch(err => console.log('err:', err));
                 dispatch(getUserData());
             }
         });
-    }, [UIerrors, UIloading]);
+    }, [UIerrors, UIloading, dispatch]);
 
     const handleSubmit = (event) => {
         event.preventDefault();

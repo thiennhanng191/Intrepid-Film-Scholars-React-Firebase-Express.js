@@ -44,6 +44,19 @@ export const logoutUser = () => (dispatch) => {
     dispatch({ type: SET_UNAUTHENTICATED });
 }
 
+export const registerUserFromGoogleSignin = (newUserData) => (dispatch) => {
+    dispatch({ type: LOADING_UI });
+    axios.post('/signup/google', newUserData) 
+        .then((res) => {
+            // dispatch({ type: CLEAR_ERRORS });
+        }).catch((err) => {
+            dispatch({
+                type: SET_ERRORS,
+                payload: err.response.data
+            })
+        });
+}
+
 export const getUserData = () => (dispatch) => {
     dispatch({ type: LOADING_USER });
     axios.get('/user') // send a get request to (<url>/api/user)
