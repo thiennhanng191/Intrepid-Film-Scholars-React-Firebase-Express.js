@@ -33,7 +33,7 @@ export default {
     },
     pageTitle: {
       margin: '10px auto 10px auto',
-      color: '#01B2BF'
+      color: '#01B2BF !important'
     },
     button: {
       marginTop: 20,
